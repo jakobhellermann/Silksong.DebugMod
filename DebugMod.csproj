@@ -43,14 +43,29 @@
     <EmbeddedResource Include="Resources\*.jsonc" />
   </ItemGroup>
 
-  <ItemGroup>
+	<PropertyGroup Condition="Exists('$(ManagedDir)')">
+		<ExcludeAssetsIfLocalReference>compile</ExcludeAssetsIfLocalReference>
+	</PropertyGroup>
+	<Target Name="ValidateManagedDir" BeforeTargets="BeforeBuild">
+		<Error Condition="'$(ManagedDir)' != '' And !Exists('$(ManagedDir)')" Text="ManagedDir '$(ManagedDir)' does not exist."/>
+	</Target>
+	<ItemGroup Condition="Exists('$(ManagedDir)')">
+		<LocalReferences
+			Include="$(ManagedDir)/*.dll"
+			Exclude="$(ManagedDir)/Mono*.dll;$(ManagedDir)/netstandard.dll;$(ManagedDir)/System*.dll;$(ManagedDir)/mscorlib.dll"
+		/>
+		<Reference Include="@(LocalReferences)" Private="false"/>
+	</ItemGroup>
+
+
+	<ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
     <PackageReference Include="HarmonyX" Version="2.9.0" />
     <PackageReference Include="Hamunii.BepInEx.AutoPlugin" Version="2.1.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Unity.Analyzers" Version="1.27.0" PrivateAssets="all" />
-    <PackageReference Include="UnityEngine.Modules" Version="6000.0.50" IncludeAssets="compile" />
-    <PackageReference Include="Silksong.GameLibs" Version="*-*" PrivateAssets="all" />
+    <PackageReference Include="UnityEngine.Modules" Version="6000.0.50" IncludeAssets="compile" ExcludeAssets="$(ExcludeAssetsIfLocalReference)" />
+    <PackageReference Include="Silksong.GameLibs" Version="*-*" PrivateAssets="all" ExcludeAssets="$(ExcludeAssetsIfLocalReference)" />
     <PackageReference Include="Silksong.I18N" Version="1.1.1" />
   </ItemGroup>
 
