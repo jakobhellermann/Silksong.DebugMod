@@ -36,6 +36,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private static CommandPaletteController _instance;
     private static int? _closedFrame;
+    private static int? _lastToggleFrame;
 
     private CanvasPanel panel;
     private CanvasTextField queryField;
@@ -69,6 +70,16 @@ public sealed class CommandPaletteController : MonoBehaviour
         if (IsOpen) _instance.Close();
         _instance.panel?.Destroy();
         _instance = null;
+    }
+
+    public static void Toggle()
+    {
+        if (_instance == null) return;
+        if (Time.frameCount == _lastToggleFrame) return;
+        _lastToggleFrame = Time.frameCount;
+
+        if (IsOpen) _instance.Close();
+        else _instance.Open();
     }
 
     private void OnDestroy()
@@ -112,15 +123,13 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private void HandleKeybindings()
     {
-        if (Input.GetKeyDown(KeyCode.Space) &&
-            (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))
+        if (!IsOpen) return;
+
+        if (DebugMod.settings.binds.TryGetValue("MODUI_TOGGLECOMMANDPALETTE", out Binding toggle) && toggle.IsDown())
         {
-            if (IsOpen) Close();
-            else Open();
+            Toggle();
             return;
         }
-
-        if (!IsOpen) return;
 
         if (Input.GetKeyDown(KeyCode.Backspace) &&
             (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl)))

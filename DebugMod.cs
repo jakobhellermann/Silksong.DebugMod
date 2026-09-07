@@ -125,6 +125,11 @@ public partial class DebugMod : BaseUnityPlugin
         // Updates the config entry
         bindUpdated?.Invoke("MODUI_TOGGLEALLUI", settings.binds["MODUI_TOGGLEALLUI"]);
 
+        if (!settings.binds.ContainsKey("MODUI_TOGGLECOMMANDPALETTE"))
+        {
+            settings.binds.Add("MODUI_TOGGLECOMMANDPALETTE", new Binding(Modifier.Ctrl, KeyCode.Space));
+        }
+
         int alphaStart = (int)(settings.NumPadForSaveStates ? KeyCode.Keypad0 : KeyCode.Alpha0);
 
         alphaKeyDict.Clear();
