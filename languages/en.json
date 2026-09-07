@@ -182,6 +182,7 @@
     "MODUI_ALWAYSSHOWCURSOR": "Always Show Cursor",
     "MODUI_EXPANDCOLLAPSESAVESTATES": "Expand/Collapse Savestates",
     "MODUI_TOGGLEALLUI": "Toggle All UI",
+    "MODUI_TOGGLECOMMANDPALETTE": "Toggle Command Palette",
     "MODUI_TOGGLECONSOLEPANEL": "Toggle Console Panel",
     "MODUI_TOGGLEENEMIESPANEL": "Toggle Enemies Panel",
     "MODUI_TOGGLEINFOPANEL": "Toggle Info Panel",
