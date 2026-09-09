@@ -125,7 +125,7 @@ public partial class DebugMod : BaseUnityPlugin
 
         if (!settings.binds.ContainsKey("MODUI_TOGGLECOMMANDPALETTE"))
         {
-            settings.binds.Add("MODUI_TOGGLECOMMANDPALETTE", new Binding(Modifier.Control, KeyCode.Space));
+            settings.binds.Add("MODUI_TOGGLECOMMANDPALETTE", new Binding(Modifier.Control | Modifier.Shift, KeyCode.P));
         }
 
         // Updates the config entries
