@@ -66,6 +66,14 @@ internal static class ModHooks
     {
         ColliderCreateHook?.Invoke(__instance.gameObject);
     }
+    
+    [HarmonyPatch(typeof(DebugDrawColliderRuntimeAdder), "Awake")]
+    [HarmonyPostfix]
+    private static void DebugDrawColliderRuntimeAdder_AddDebugDrawComponent(PlayMakerUnity2DProxy __instance)
+    {
+        ColliderCreateHook?.Invoke(__instance.gameObject);
+    }
+    
     #endregion
 
     #region CursorHook
