@@ -123,13 +123,14 @@ public partial class DebugMod : BaseUnityPlugin
             SaveSettings();
         }
 
-        // Updates the config entry
-        bindUpdated?.Invoke("MODUI_TOGGLEALLUI", settings.binds["MODUI_TOGGLEALLUI"]);
-
         if (!settings.binds.ContainsKey("MODUI_TOGGLECOMMANDPALETTE"))
         {
             settings.binds.Add("MODUI_TOGGLECOMMANDPALETTE", new Binding(Modifier.Control, KeyCode.Space));
         }
+
+        // Updates the config entries
+        bindUpdated?.Invoke("MODUI_TOGGLEALLUI", settings.binds["MODUI_TOGGLEALLUI"]);
+        bindUpdated?.Invoke("MODUI_TOGGLECOMMANDPALETTE", settings.binds["MODUI_TOGGLECOMMANDPALETTE"]);
 
         int alphaStart = (int)(settings.NumPadForSaveStates ? KeyCode.Keypad0 : KeyCode.Alpha0);
 

@@ -198,6 +198,8 @@ public class Settings
 
         AddConfigEntryKeybind(config, "MODUI_TOGGLEALLUI", "Toggle All UI Keybind",
             new Binding(KeyCode.F2), "Press this key to toggle DebugMod's UI.");
+        AddConfigEntryKeybind(config, "MODUI_TOGGLECOMMANDPALETTE", "Toggle Command Palette Keybind",
+            new Binding(Modifier.Control, KeyCode.Space), "Press this key to toggle the command palette.");
 
         noclipSpeedModifier = config.Bind(
             "General",
