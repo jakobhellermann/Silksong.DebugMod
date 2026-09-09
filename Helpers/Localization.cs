@@ -54,13 +54,7 @@ internal static class Localization
 
     internal static string Get(string key)
     {
-        foreach (string sheetName in sheets)
-        {
-            // Silent reimplementation of Language.Get to avoid I18N warning us of extensions missing keys
-            if (Language._currentEntrySheets == null || !Language._currentEntrySheets.ContainsKey(sheetName)) continue;
-            if (!Language._currentEntrySheets.TryGetValue(sheetName, out Dictionary<string, string> sheet)) continue;
-            if (sheet.TryGetValue(key, out string result)) return result;
-        }
+        if (TryGetFromSheets(key, out string value)) return value;
 
         if (!warnedEntryMissing)
         {
@@ -68,13 +62,39 @@ internal static class Localization
             warnedEntryMissing = true;
         }
 
-        if (FallbackSheet.TryGetValue(key, out string value))
+        if (FallbackSheet.TryGetValue(key, out value))
         {
             return value;
         }
 
         DebugMod.LogError($"'{key}' is not a valid key in the language sheet.");
         return key;
+    }
+
+    /// <summary>
+    /// Like <see cref="Get"/>, but passes text that is not a known localization key through unchanged and
+    /// never warns — for callers that can't tell whether a string is a key (palette titles are either
+    /// keys or raw data like scene names).
+    /// </summary>
+    internal static string GetOrSelf(string key)
+    {
+        if (string.IsNullOrEmpty(key)) return key;
+        if (TryGetFromSheets(key, out string value)) return value;
+        return FallbackSheet.TryGetValue(key, out value) ? value : key;
+    }
+
+    // Silent reimplementation of Language.Get to avoid I18N warning us of extensions missing keys
+    private static bool TryGetFromSheets(string key, out string value)
+    {
+        foreach (string sheetName in sheets)
+        {
+            if (Language._currentEntrySheets == null || !Language._currentEntrySheets.ContainsKey(sheetName)) continue;
+            if (!Language._currentEntrySheets.TryGetValue(sheetName, out Dictionary<string, string> sheet)) continue;
+            if (sheet.TryGetValue(key, out value)) return true;
+        }
+
+        value = null;
+        return false;
     }
 
     internal static void AddSheet(string sheet)

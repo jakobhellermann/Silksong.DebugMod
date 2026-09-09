@@ -272,7 +272,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private IEnumerable<PaletteEntry> CurrentItems()
         => (navigation.Count == 0 ? DebugMod.CommandPaletteRegistry.RootItems : navigation[^1].GetChildren())
-            .Select(item => new PaletteEntry(item, item.Detail));
+            .Select(item => new PaletteEntry(item, Localization.GetOrSelf(item.Detail)));
 
     private IEnumerable<PaletteEntry> SearchItems(IEnumerable<CommandPaletteItem> items, string path = "")
     {
@@ -280,14 +280,15 @@ public sealed class CommandPaletteController : MonoBehaviour
         {
             if (item is CommandPaletteItem.SubmenuItem submenu)
             {
-                string submenuPath = string.IsNullOrEmpty(path) ? submenu.Title : $"{path} {SubmenuIndicator} {submenu.Title}";
+                string submenuPath = string.IsNullOrEmpty(path) ? Localization.GetOrSelf(submenu.Title) : $"{path} {SubmenuIndicator} {Localization.GetOrSelf(submenu.Title)}";
                 yield return new PaletteEntry(submenu, path);
                 if (!submenu.SearchChildren) continue;
                 foreach (PaletteEntry entry in SearchItems(submenu.GetChildren(), submenuPath)) yield return entry;
                 continue;
             }
 
-            string detail = string.IsNullOrEmpty(path) ? item.Detail : string.IsNullOrEmpty(item.Detail) ? path : $"{path} {SubmenuIndicator} {item.Detail}";
+            string itemDetail = Localization.GetOrSelf(item.Detail);
+            string detail = string.IsNullOrEmpty(path) ? itemDetail : string.IsNullOrEmpty(itemDetail) ? path : $"{path} {SubmenuIndicator} {itemDetail}";
             yield return new PaletteEntry(item, detail);
         }
     }
@@ -326,7 +327,7 @@ public sealed class CommandPaletteController : MonoBehaviour
     {
         if (string.IsNullOrEmpty(entry.Detail) && navigation.Count > 0)
         {
-            entry = new PaletteEntry(entry.Item, string.Join($" {SubmenuIndicator} ", navigation.Select(item => item.Title)));
+            entry = new PaletteEntry(entry.Item, string.Join($" {SubmenuIndicator} ", navigation.Select(item => Localization.GetOrSelf(item.Title))));
         }
 
         history.RemoveAll(historyEntry => historyEntry.Item == entry.Item);
@@ -436,7 +437,7 @@ public sealed class CommandPaletteController : MonoBehaviour
             row.ItemIndex = itemIndex;
             row.Button.Toggled = itemIndex == selectedIndex;
             row.Selection.ActiveSelf = itemIndex == selectedIndex;
-            row.Button.Text.Text = entry.Item.Title;
+            row.Button.Text.Text = Localization.GetOrSelf(entry.Item.Title);
             row.Detail.Text = entry.Item switch
             {
                 CommandPaletteItem.ToggleItem toggle => Localization.Get(toggle.IsEnabled() ? "COMMANDPALETTE_ON" : "COMMANDPALETTE_OFF"),
@@ -450,7 +451,8 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private static bool Matches(PaletteEntry entry, string query)
     {
-        string text = NormalizeSearch($"{entry.Item.Title} {entry.Detail}");
+        // Match against both the raw key and its translation, so power users can search by key
+        string text = NormalizeSearch($"{entry.Item.Title} {Localization.GetOrSelf(entry.Item.Title)} {entry.Detail}");
         return query.Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .All(term => text.Contains(NormalizeSearch(term), StringComparison.OrdinalIgnoreCase));
     }
