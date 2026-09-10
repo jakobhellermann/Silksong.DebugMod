@@ -1,4 +1,3 @@
-using BepInEx.Configuration;
 using Newtonsoft.Json;
 using System;
 using UnityEngine;
@@ -67,16 +66,6 @@ public readonly struct Binding : IEquatable<Binding>
         return true;
     }
     
-    internal static void RegisterTomlConverter()
-    {
-        if (TomlTypeConverter.CanConvert(typeof(Binding))) return;
-        TomlTypeConverter.AddConverter(typeof(Binding), new TypeConverter
-        {
-            ConvertToString = (value, _) => value.ToString(),
-            ConvertToObject = (value, _) => Parse(value),
-        });
-    }
-
     private sealed class BindingJsonConverter : JsonConverter<Binding>
     {
         public override void WriteJson(JsonWriter writer, Binding value, JsonSerializer serializer)

@@ -86,7 +86,6 @@ public partial class DebugMod : BaseUnityPlugin
 
     public void Awake()
     {
-        Binding.RegisterTomlConverter();
         settings.InitMenu(Config);
         LoadSettings();
 
