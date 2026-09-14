@@ -54,6 +54,7 @@ public class GUIController : MonoBehaviour
     private readonly List<KeyCode> UnbindableKeys = new List<KeyCode>()
     {
         KeyCode.Mouse0,
+        // On macOS, pressing the left command key emits both LeftMeta and LeftWindows, so the latter has to be ignored
         KeyCode.LeftWindows,
         KeyCode.RightWindows,
     };
