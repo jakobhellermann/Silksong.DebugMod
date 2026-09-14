@@ -8,7 +8,7 @@ namespace DebugMod;
 public enum Modifier
 {
     None = 0,
-    Control = 1 << 0,
+    Ctrl = 1 << 0,
     Shift = 1 << 1,
     Alt = 1 << 2,
     Meta = 1 << 3,
@@ -26,7 +26,7 @@ internal static class ModifierExtensions
 
     internal static Modifier Held() =>
         (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? Modifier.Shift : 0) |
-        (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ? Modifier.Control : 0) |
+        (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ? Modifier.Ctrl : 0) |
         (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt) ? Modifier.Alt : 0) |
         (Input.GetKey(KeyCode.LeftMeta) || Input.GetKey(KeyCode.RightMeta) ? Modifier.Meta : 0);
 
@@ -34,7 +34,7 @@ internal static class ModifierExtensions
 
     internal static Modifier FromKeyCode(KeyCode key) => key switch
     {
-        KeyCode.LeftControl or KeyCode.RightControl => Modifier.Control,
+        KeyCode.LeftControl or KeyCode.RightControl => Modifier.Ctrl,
         KeyCode.LeftShift or KeyCode.RightShift => Modifier.Shift,
         KeyCode.LeftAlt or KeyCode.RightAlt => Modifier.Alt,
         KeyCode.LeftMeta or KeyCode.RightMeta => Modifier.Meta,
@@ -43,7 +43,7 @@ internal static class ModifierExtensions
 
     internal static KeyCode ToKeyCode(this Modifier modifier) => modifier switch
     {
-        Modifier.Control => KeyCode.LeftControl,
+        Modifier.Ctrl => KeyCode.LeftControl,
         Modifier.Shift => KeyCode.LeftShift,
         Modifier.Alt => KeyCode.LeftAlt,
         Modifier.Meta => KeyCode.LeftMeta,
