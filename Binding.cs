@@ -29,8 +29,7 @@ public readonly struct Binding : IEquatable<Binding>
     public static bool operator !=(Binding left, Binding right) => !(left == right);
 
     public bool IsDown() => IsDown(ModifierExtensions.Held());
-    public bool IsDown(Modifier modifiers) => Key != KeyCode.None && Input.GetKeyDown(Key) 
-                                                                  && (modifiers & Modifiers) == Modifiers;
+    public bool IsDown(Modifier modifiers) => Key != KeyCode.None && Input.GetKeyDown(Key) && modifiers == Modifiers;
 
     public override string ToString()
     {
