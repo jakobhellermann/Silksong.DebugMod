@@ -269,7 +269,7 @@ public class Settings
         Modifier modifiers = Modifier.None;
         foreach (KeyCode key in shortcut.Modifiers)
         {
-            modifiers |= ModifierExtensions.FromKeyCode(key);
+            modifiers |= Modifiers.FromKeyCode(key);
         }
         return new Binding(modifiers, shortcut.MainKey);
     }

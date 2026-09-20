@@ -388,7 +388,7 @@ public class GUIController : MonoBehaviour
 
     private void HandleKeybinds()
     {
-        Modifier modifiers = ModifierExtensions.Held();
+        Modifier modifiers = Modifiers.Held();
 
         foreach ((string bindName, Binding binding) in DebugMod.settings.binds)
         {
@@ -439,13 +439,13 @@ public class GUIController : MonoBehaviour
 
     private void HandleRebind(string bindName)
     {
-        Modifier held = ModifierExtensions.Held();
+        Modifier held = Modifiers.Held();
 
         foreach (KeyCode kc in allKeyCodes)
         {
             if (UnbindableKeys.Contains(kc) || !Input.GetKeyDown(kc)) continue;
 
-            if (ModifierExtensions.IsModifierKey(kc))
+            if (Modifiers.IsModifierKey(kc))
             {
                 pendingModifierKey = kc;
                 continue;

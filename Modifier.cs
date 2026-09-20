@@ -14,7 +14,7 @@ public enum Modifier
     Meta = 1 << 3,
 }
 
-internal static class ModifierExtensions
+internal static class Modifiers
 {
     internal static IEnumerable<Modifier> Active(this Modifier modifiers)
     {
