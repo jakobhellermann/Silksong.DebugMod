@@ -1,16 +1,14 @@
 using BepInEx.Configuration;
 using DebugMod.UI;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace DebugMod;
 
 public class Settings
 {
-    [JsonProperty(ItemConverterType = typeof(StringEnumConverter))]
-    public Dictionary<string, KeyCode> binds = new();
+    public Dictionary<string, Binding> binds = new();
 
     private string lastLoadedPack = "";
     private string mainPanelCurrentTab;
@@ -26,7 +24,6 @@ public class Settings
 
     private bool logUnityExceptions = true;
 
-    private static ConfigEntry<KeyCode> toggleAllUI;
     private static ConfigEntry<float> noclipSpeedModifier;
     private static ConfigEntry<bool> altInfoPanel;
     private static ConfigEntry<bool> expandedInfoPanel;
@@ -199,32 +196,8 @@ public class Settings
         // We store all the settings ourselves
         config.SaveOnConfigSet = false;
 
-        string toggleAllUIName = "MODUI_TOGGLEALLUI";
-
-        toggleAllUI = config.Bind(
-            "General",
-            "Toggle All UI Keybind",
-            KeyCode.F2,
-            "Press this key to toggle DebugMod's UI."
-        );
-        toggleAllUI.SettingChanged += (_, _) =>
-        {
-            if (toggleAllUI.Value == KeyCode.None)
-            {
-                DebugMod.UpdateBind(toggleAllUIName, null);
-            }
-            else
-            {
-                DebugMod.UpdateBind(toggleAllUIName, toggleAllUI.Value);
-            }
-        };
-        DebugMod.bindUpdated += (name, key) =>
-        {
-            if (name == toggleAllUIName)
-            {
-                toggleAllUI.Value = key ?? KeyCode.None;
-            }
-        };
+        AddConfigEntryKeybind(config, "MODUI_TOGGLEALLUI", "Toggle All UI Keybind",
+            new Binding(KeyCode.F2), "Press this key to toggle DebugMod's UI.");
 
         noclipSpeedModifier = config.Bind(
             "General",
@@ -271,4 +244,24 @@ public class Settings
             "Fixes some obscure issues when using savestates, but makes loading take longer."
         );
     }
+
+    private static void AddConfigEntryKeybind(ConfigFile config, string bindName, string displayName, Binding defaultBinding, string description)
+    {
+        ConfigEntry<KeyCode> entry = config.Bind("General", displayName, ToShortcut(defaultBinding), description);
+        entry.SettingChanged += (_, _) =>
+        {
+            DebugMod.UpdateBind(bindName, ToBinding(entry.Value));
+        };
+        DebugMod.bindUpdated += (name, binding) =>
+        {
+            if (name == bindName && ToBinding(entry.Value) != binding)
+            {
+                entry.Value = ToShortcut(binding);
+            }
+        };
+    }
+
+    private static Binding? ToBinding(KeyCode keyCode) => new Binding(keyCode);
+
+    private static KeyCode ToShortcut(Binding? binding) => binding?.Key ?? KeyCode.None;
 }
