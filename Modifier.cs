@@ -41,6 +41,8 @@ internal static class Modifiers
         _ => Modifier.None
     };
 
+    internal static Modifier Without(this Modifier modifiers, KeyCode key) => modifiers & ~FromKeyCode(key);
+
     internal static KeyCode ToKeyCode(this Modifier modifier) => modifier switch
     {
         Modifier.Ctrl => KeyCode.LeftControl,
