@@ -450,9 +450,9 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private static bool Matches(PaletteEntry entry, string query)
     {
-        string text = NormalizeSearch($"{entry.Item.Title()} {entry.Detail}");
+        string[] fields = [entry.Item.Title(), entry.Detail]; 
         return query.Split(' ', StringSplitOptions.RemoveEmptyEntries)
-            .All(term => text.Contains(NormalizeSearch(term), StringComparison.OrdinalIgnoreCase));
+            .All(term => fields.Any(f => NormalizeSearch(f).Contains(NormalizeSearch(term), StringComparison.OrdinalIgnoreCase)));
     }
 
     private static string NormalizeSearch(string text) => text.Replace(" ", "").Replace("_", "");
