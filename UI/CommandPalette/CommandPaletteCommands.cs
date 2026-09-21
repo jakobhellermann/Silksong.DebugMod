@@ -1,5 +1,6 @@
 using DebugMod.Helpers;
 using DebugMod.SaveStates;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -37,14 +38,17 @@ public static class CommandPaletteCommands
             yield return new CommandPaletteItem.SubmenuItem(
                 scene.Key,
                 () => scene.Value.TransitionGates.OrderBy(g => g).Select(gate =>
-                    new CommandPaletteItem.ActionItem(gate, () => Teleport(scene.Key, gate))),
+                    new CommandPaletteItem.ActionItem(gate, () => GameManager.instance.StartCoroutine(Teleport(scene.Key, gate)))),
                 searchChildren: false
             );
         }
     }
 
-    private static void Teleport(string scene, string gate)
+    private static IEnumerator Teleport(string scene, string gate)
     {
+        if (UIManager.instance.uiState.ToString() == "PAUSED")
+            yield return GameManager.instance.PauseGameToggle(false);
+        
         GameManager.instance.BeginSceneTransition(new GameManager.SceneLoadInfo
         {
             SceneName = scene,
