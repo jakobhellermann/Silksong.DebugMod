@@ -72,7 +72,7 @@ jobs:
         tag: v${{ steps.version.outputs.version }}
     - name: Generate attestation
       id: attest
-      uses: actions/attest-build-provenance@v4.1.1
+      uses: actions/attest-build-provenance@v4.2.2
       if: github.event_name == 'push' && steps.needs-release.outputs.exists == 'false'
       with:
         subject-path: |
@@ -177,7 +177,7 @@ jobs:
         name: manual-bundle
         path: thunderstore/manual
     - name: Release
-      uses: softprops/action-gh-release@v3.0.2
+      uses: softprops/action-gh-release@v3.0.3
       with:
         draft: false
         generate_release_notes: true
