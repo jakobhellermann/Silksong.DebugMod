@@ -14,13 +14,13 @@ public static class CommandPaletteCommands
         foreach (var category in DebugMod.bindActions.Values.GroupBy(action => action.Category))
         {
             registry.RegisterSubmenu(
-                Localization.Get(category.Key),
-                () => category.Select(action => new CommandPaletteItem.ActionItem(Localization.Get(action.Name), action.Action))
+                () => Localization.Get(category.Key),
+                () => category.Select(action => new CommandPaletteItem.ActionItem(() => Localization.Get(action.Name), action.Action))
             );
         }
         
-        registry.RegisterSubmenu(Localization.Get("COMMANDPALETTE_SAVESTATE_FILES"), FileSavestates);
-        registry.RegisterSubmenu(Localization.Get("COMMANDPALETTE_WARP"), TeleportPoints);
+        registry.RegisterSubmenu(() => Localization.Get("COMMANDPALETTE_SAVESTATE_FILES"), FileSavestates);
+        registry.RegisterSubmenu(() => Localization.Get("COMMANDPALETTE_WARP"), TeleportPoints);
     }
     
     #region Teleport

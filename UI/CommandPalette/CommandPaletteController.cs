@@ -279,7 +279,8 @@ public sealed class CommandPaletteController : MonoBehaviour
         {
             if (item is CommandPaletteItem.SubmenuItem submenu)
             {
-                string submenuPath = string.IsNullOrEmpty(path) ? submenu.Title : $"{path} {SubmenuIndicator} {submenu.Title}";
+                string title = submenu.Title();
+                string submenuPath = string.IsNullOrEmpty(path) ? title : $"{path} {SubmenuIndicator} {title}";
                 yield return new PaletteEntry(submenu, path);
                 if (!submenu.SearchChildren) continue;
                 foreach (PaletteEntry entry in SearchItems(submenu.GetChildren(), submenuPath)) yield return entry;
@@ -325,7 +326,7 @@ public sealed class CommandPaletteController : MonoBehaviour
     {
         if (string.IsNullOrEmpty(entry.Detail) && navigation.Count > 0)
         {
-            entry = new PaletteEntry(entry.Item, string.Join($" {SubmenuIndicator} ", navigation.Select(item => item.Title)));
+            entry = new PaletteEntry(entry.Item, string.Join($" {SubmenuIndicator} ", navigation.Select(item => item.Title())));
         }
 
         history.RemoveAll(historyEntry => historyEntry.Item == entry.Item);
@@ -435,7 +436,7 @@ public sealed class CommandPaletteController : MonoBehaviour
             row.ItemIndex = itemIndex;
             row.Button.Toggled = itemIndex == selectedIndex;
             row.Selection.ActiveSelf = itemIndex == selectedIndex;
-            row.Button.Text.Text = entry.Item.Title;
+            row.Button.Text.Text = entry.Item.Title();
             row.Detail.Text = entry.Item switch
             {
                 CommandPaletteItem.ToggleItem toggle => Localization.Get(toggle.IsEnabled() ? "COMMANDPALETTE_ON" : "COMMANDPALETTE_OFF"),
@@ -449,7 +450,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private static bool Matches(PaletteEntry entry, string query)
     {
-        string text = NormalizeSearch($"{entry.Item.Title} {entry.Detail}");
+        string text = NormalizeSearch($"{entry.Item.Title()} {entry.Detail}");
         return query.Split(' ', StringSplitOptions.RemoveEmptyEntries)
             .All(term => text.Contains(NormalizeSearch(term), StringComparison.OrdinalIgnoreCase));
     }
