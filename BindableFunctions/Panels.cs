@@ -1,5 +1,5 @@
-﻿using DebugMod.CommandPalette;
-using DebugMod.UI;
+﻿using DebugMod.UI;
+using DebugMod.UI.CommandPalette;
 
 namespace DebugMod;
 

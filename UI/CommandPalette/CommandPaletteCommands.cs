@@ -1,4 +1,3 @@
-using DebugMod.CommandPalette;
 using DebugMod.Helpers;
 using DebugMod.SaveStates;
 using System.Collections.Generic;

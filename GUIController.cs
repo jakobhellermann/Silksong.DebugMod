@@ -6,7 +6,7 @@ using DebugMod.SaveStates;
 using DebugMod.UI;
 using DebugMod.UI.Canvas;
 using DebugMod.UI.Dialogs;
-using DebugMod.CommandPalette;
+using DebugMod.UI.CommandPalette;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;

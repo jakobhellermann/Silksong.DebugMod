@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DebugMod.CommandPalette;
+namespace DebugMod.UI.CommandPalette;
 
 public abstract class CommandPaletteItem(string title, string detail = null)
 {

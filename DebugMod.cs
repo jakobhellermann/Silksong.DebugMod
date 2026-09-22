@@ -1,5 +1,4 @@
 using BepInEx;
-using DebugMod.CommandPalette;
 using DebugMod.Helpers;
 using DebugMod.MonoBehaviours;
 using DebugMod.SaveStates;

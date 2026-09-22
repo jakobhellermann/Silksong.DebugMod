@@ -1,6 +1,5 @@
 using DebugMod.Helpers;
 using DebugMod.MonoBehaviours;
-using DebugMod.UI;
 using DebugMod.UI.Canvas;
 using HarmonyLib;
 using System;
@@ -10,7 +9,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace DebugMod.CommandPalette;
+namespace DebugMod.UI.CommandPalette;
 
 [HarmonyPatch]
 public sealed class CommandPaletteController : MonoBehaviour
