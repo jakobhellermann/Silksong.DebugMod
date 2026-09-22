@@ -271,7 +271,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private IEnumerable<PaletteEntry> CurrentItems()
         => (navigation.Count == 0 ? DebugMod.CommandPaletteRegistry.RootItems : navigation[^1].GetChildren())
-            .Select(item => new PaletteEntry(item, item.Detail));
+            .Select(item => new PaletteEntry(item, null));
 
     private IEnumerable<PaletteEntry> SearchItems(IEnumerable<CommandPaletteItem> items, string path = "")
     {
@@ -287,7 +287,7 @@ public sealed class CommandPaletteController : MonoBehaviour
                 continue;
             }
 
-            string detail = string.IsNullOrEmpty(path) ? item.Detail : string.IsNullOrEmpty(item.Detail) ? path : $"{path} {SubmenuIndicator} {item.Detail}";
+            string detail = string.IsNullOrEmpty(path) ? null : path;
             yield return new PaletteEntry(item, detail);
         }
     }

@@ -11,6 +11,6 @@ public sealed class CommandPaletteRegistry
 
     public void Register(CommandPaletteItem item) => rootItems.Add(item);
 
-    public void RegisterSubmenu(Func<string> title, Func<IEnumerable<CommandPaletteItem>> getChildren, string detail = null)
-        => Register(new CommandPaletteItem.SubmenuItem(title, getChildren, detail));
+    public void RegisterSubmenu(Func<string> title, Func<IEnumerable<CommandPaletteItem>> getChildren)
+        => Register(new CommandPaletteItem.SubmenuItem(title, getChildren));
 }
