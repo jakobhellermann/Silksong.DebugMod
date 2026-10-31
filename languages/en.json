@@ -175,6 +175,8 @@
     "MISC_HAZARDRESPAWN": "Hazard Respawn",
     "MISC_KILLSELF": "Kill Self",
     "MISC_LOCKKEYBINDS": "Lock Keybinds",
+    "MISC_NEXTROOM": "Go To Next Room",
+    "MISC_PREVIOUSROOM": "Go To Previous Room",
     "MISC_QUEUEWALLJUMPINTERRUPT": "Queue Walljump Interrupt",
     "MISC_RESETALL": "Reset All",
     "MISC_RESETCHEATS": "Reset Cheats",

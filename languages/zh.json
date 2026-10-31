@@ -173,6 +173,8 @@
     "MISC_HAZARDRESPAWN": "传送至环境重生点",
     "MISC_KILLSELF": "自杀",
     "MISC_LOCKKEYBINDS": "锁定快捷键",
+    "MISC_NEXTROOM": "前往下一个房间",
+    "MISC_PREVIOUSROOM": "返回上一个房间",
     "MISC_QUEUEWALLJUMPINTERRUPT": "取消攀爬自动跳跃",
     "MISC_RESETALL": "全部重置",
     "MISC_RESETCHEATS": "重置作弊功能选项",
