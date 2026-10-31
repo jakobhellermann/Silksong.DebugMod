@@ -178,6 +178,7 @@
     "MISC_RESETCHEATS": "重置作弊功能选项",
     "MISC_RESETCURRENTSCENEDATA": "重置当前场景数据",
     "MISC_SETHAZARDRESPAWN": "设置临时环境重生点",
+    "MISC_SKIPWAIT": "跳过等待",
     "MISC_TOGGLEACT3": "切换第三幕",
     "MODUI_ALWAYSSHOWCURSOR": "始终显示光标",
     "MODUI_EXPANDCOLLAPSESAVESTATES": "展开/折叠存档列表",
