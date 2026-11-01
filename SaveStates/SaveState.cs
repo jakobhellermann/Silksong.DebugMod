@@ -473,6 +473,8 @@ public class SaveState
             string dummyScene = "Demo Start";
             Addressables.LoadSceneAsync($"Scenes/{dummyScene}");
             yield return new WaitUntil(() => USceneManager.GetActiveScene().name == dummyScene);
+            // The dummy scene disables the HUD camera, which otherwise clears the screen while the main camera is off during loading
+            GameCameras.instance.hudCamera.gameObject.SetActive(true);
         }
 
         phase.Enter("restore data");
