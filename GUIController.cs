@@ -242,7 +242,7 @@ public class GUIController : MonoBehaviour
             ConsolePanel.Instance?.ActiveSelf = DebugMod.settings.ConsoleVisible;
             InfoPanel.Instance?.ActiveSelf = DebugMod.settings.InfoPanelVisible;
             SaveStatesPanel.Instance?.ActiveSelf = SaveStatesPanel.ShouldBeVisible;
-            HitboxFilterPanel.Instance?.ActiveSelf = DebugMod.settings.ShowHitBoxes != 0;
+            HitboxFilterPanel.Instance?.ActiveSelf = DebugMod.settings.HitboxFilterPanelVisible && DebugMod.settings.ShowHitBoxes != 0;
 
             // Update all nodes, skipping over disabled nodes
             for (int i = 0; i < CanvasNode.allNodes.Count;)

@@ -21,6 +21,7 @@ public class Settings
     private bool infoPanelVisible = true;
     private bool saveStatePanelVisible = true;
     private bool saveStatePanelExpanded = false;
+    private bool hitboxFilterPanelVisible = false;
 
     private bool logUnityExceptions = true;
 
@@ -131,6 +132,16 @@ public class Settings
         set
         {
             saveStatePanelExpanded = value;
+            DebugMod.SaveSettings();
+        }
+    }
+
+    public bool HitboxFilterPanelVisible
+    {
+        get => hitboxFilterPanelVisible;
+        set
+        {
+            hitboxFilterPanelVisible = value;
             DebugMod.SaveSettings();
         }
     }

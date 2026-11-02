@@ -24,6 +24,7 @@ public static partial class BindableFunctions
         DebugMod.settings.EnemiesPanelVisible = active;
         DebugMod.settings.ConsoleVisible = active;
         DebugMod.settings.SaveStatePanelVisible = active;
+        if (!active) DebugMod.settings.HitboxFilterPanelVisible = false;
     }
 
     [BindableMethod(name = "MODUI_TOGGLEMAINPANEL", category = "CATEGORY_MODUI")]

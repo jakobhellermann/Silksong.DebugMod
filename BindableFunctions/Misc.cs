@@ -25,6 +25,12 @@ public static partial class BindableFunctions
             + ", reload the scene to apply changes");
     }
 
+    [BindableMethod(name = "MISC_TOGGLEHITBOXFILTERPANEL", category = "CATEGORY_MISC")]
+    public static void ToggleHitboxFilterPanel()
+    {
+        DebugMod.settings.HitboxFilterPanelVisible = !DebugMod.settings.HitboxFilterPanelVisible;
+    }
+
     [BindableMethod(name = "MISC_SETHAZARDRESPAWN", category = "CATEGORY_MISC")]
     public static void SetHazardRespawn()
     {
