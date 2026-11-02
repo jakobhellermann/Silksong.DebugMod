@@ -181,6 +181,7 @@
     "MISC_RESETCURRENTSCENEDATA": "Reset Current Scene Data",
     "MISC_SETHAZARDRESPAWN": "Set Hazard Respawn",
     "MISC_TOGGLEACT3": "Toggle Act 3",
+    "MISC_TOGGLEHITBOXFILTERPANEL": "Toggle Hitbox Filter Panel",
     "MODUI_ALWAYSSHOWCURSOR": "Always Show Cursor",
     "MODUI_EXPANDCOLLAPSESAVESTATES": "Expand/Collapse Savestates",
     "MODUI_TOGGLEALLUI": "Toggle All UI",
