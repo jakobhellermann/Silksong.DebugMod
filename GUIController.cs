@@ -166,6 +166,7 @@ public class GUIController : MonoBehaviour
             DropdownDialog.BuildPanel();
             ImportPackDialog.BuildPanel();
             ExportPackDialog.BuildPanel();
+            HitboxTooltip.BuildPanel();
 
             DebugMod.LogDebug("UI built");
         }
@@ -243,6 +244,7 @@ public class GUIController : MonoBehaviour
             InfoPanel.Instance?.ActiveSelf = DebugMod.settings.InfoPanelVisible;
             SaveStatesPanel.Instance?.ActiveSelf = SaveStatesPanel.ShouldBeVisible;
             HitboxFilterPanel.Instance?.ActiveSelf = DebugMod.settings.HitboxFilterPanelVisible && DebugMod.settings.ShowHitBoxes != 0;
+            HitboxTooltip.Instance?.ActiveSelf = DebugMod.settings.ShowHitBoxes != 0 && HitboxRender.Hovered.Count > 0;
 
             // Update all nodes, skipping over disabled nodes
             for (int i = 0; i < CanvasNode.allNodes.Count;)
