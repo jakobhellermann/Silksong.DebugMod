@@ -62,6 +62,8 @@ public class Settings
         }
     }
 
+    public HashSet<string> HiddenHitboxTypes { get; set; } = [];
+
     public bool ShowCursorWhileUnpaused
     {
         get => showCursorWhileUnpaused;
