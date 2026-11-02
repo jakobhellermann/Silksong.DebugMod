@@ -26,6 +26,7 @@ public class HitboxRender : MonoBehaviour
         public static readonly HitboxType HazardRespawn = new("Hazard Respawn", new Color(0.5f, 0.0f, 0.5f)); // purple
         public static readonly HitboxType NonMantleRegion = new("Non-Mantle Region", new Color(0f, 0.3f, 0f)); // dark green
         public static readonly HitboxType AlertRegion = new("Alert Region", new Color(0.9f, 0.6f, 0.4f)); // orange
+        public static readonly HitboxType Cosmetic = new("Cosmetic", new Color(0.45f, 0.4f, 0.35f));    // taupe
         public static readonly HitboxType Other = new("Other", new Color(0.7f, 0.7f, 0.7f));            // gray
 
 
@@ -143,10 +144,41 @@ public class HitboxRender : MonoBehaviour
             var noClamber = go.GetComponent<NoClamberRegion>();
             if (noClamber && noClamber.enabled) { return HitboxType.NonMantleRegion; }
             else if (go.GetComponent<AlertRange>()) { return HitboxType.AlertRegion; }
+            else if (collider2D.isTrigger && IsCosmetic(go)) { return HitboxType.Cosmetic; }
             else return HitboxType.Other;
         }
 
         return null;
+    }
+
+    private static readonly Type[] CosmeticComponents =
+    [
+        typeof(MusicRegion), typeof(AtmosRegion), typeof(RegionSetAudio), typeof(GateSetAudio),
+        typeof(RainVibrationRegion), typeof(HeroVibrationRegion), typeof(HeroVibrationRegionBasic),
+        typeof(SceneAppearanceRegion), typeof(BloomRegion), typeof(MaterialPropertyRegion), typeof(AreaEffectTint),
+        typeof(PlayParticleOnEntry), typeof(WaterfallParticles), typeof(GrassWind), typeof(GrassBehaviour), typeof(EnviroRegion),
+        typeof(CameraLockArea), typeof(CameraOffsetArea), typeof(WindCameraRegion), typeof(CameraShakeRegion),
+        typeof(WorldRumbleArea), typeof(DarknessRegion),
+    ];
+
+    private static readonly string[] CosmeticFsmActionPrefixes =
+        ["Audio", "FadeAudio", "Trigger2dEvent", "ApplyMusic", "ApplyAtmos", "TransitionToAudioSnapshot"];
+
+    private static bool IsCosmetic(GameObject go)
+    {
+        GrassCut grassCut = go.GetComponent<GrassCut>();
+        if (grassCut)
+        {
+            return (grassCut.OnCut == null || grassCut.OnCut.GetPersistentEventCount() == 0)
+                && (grassCut.enableGameObjects == null || !grassCut.enableGameObjects.Any(enabled => enabled));
+        }
+
+        if (CosmeticComponents.Any(type => go.GetComponent(type))) return true;
+
+        // Uninitialized FSMs can't be inspected without PlayMaker logging errors
+        PlayMakerFSM[] fsms = go.GetComponents<PlayMakerFSM>();
+        return fsms.Length > 0 && fsms.All(fsm => fsm.Fsm.Initialized && fsm.Fsm.States.All(state =>
+            state.Actions.All(action => CosmeticFsmActionPrefixes.Any(prefix => action.GetType().Name.StartsWith(prefix)))));
     }
 
     private void OnGUI()
