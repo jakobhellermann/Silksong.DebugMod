@@ -10,31 +10,37 @@ namespace DebugMod.Hitbox;
 
 public class HitboxRender : MonoBehaviour
 {
-    private class HitboxType
+    public class HitboxType
     {
         public static int count = 0;
+        public static readonly List<HitboxType> All = [];
 
-        public static readonly HitboxType Knight = new(Color.yellow);                        // yellow
-        public static readonly HitboxType Enemy = new(new Color(0.8f, 0, 0));                // red
-        public static readonly HitboxType Attack = new(Color.cyan);                          // cyan
-        public static readonly HitboxType Terrain = new(new Color(0, 0.8f, 0));              // green
-        public static readonly HitboxType NonSliderTerrain = new(new Color(0, 0.8f, 0.6f));  // teal
-        public static readonly HitboxType Trigger = new(new Color(0.5f, 0.5f, 1f));          // lavender
-        public static readonly HitboxType Breakable = new(new Color(1f, 0.75f, 0.8f));       // pink
-        public static readonly HitboxType Gate = new(new Color(0.0f, 0.0f, 0.5f));           // dark blue
-        public static readonly HitboxType HazardRespawn = new(new Color(0.5f, 0.0f, 0.5f));  // purple
-        public static readonly HitboxType NonMantleRegion = new(new Color(0f, 0.3f, 0f));  // dark green
-        public static readonly HitboxType AlertRegion = new(new Color(0.9f, 0.6f, 0.4f));    // orange
-        public static readonly HitboxType Other = new(new Color(0.7f, 0.7f, 0.7f));    // gray
+        public static readonly HitboxType Knight = new("Knight", Color.yellow);                         // yellow
+        public static readonly HitboxType Enemy = new("Enemy", new Color(0.8f, 0, 0));                  // red
+        public static readonly HitboxType Attack = new("Attack", Color.cyan);                           // cyan
+        public static readonly HitboxType Terrain = new("Terrain", new Color(0, 0.8f, 0));              // green
+        public static readonly HitboxType NonSliderTerrain = new("Non-Slider Terrain", new Color(0, 0.8f, 0.6f)); // teal
+        public static readonly HitboxType Trigger = new("Trigger", new Color(0.5f, 0.5f, 1f));          // lavender
+        public static readonly HitboxType Breakable = new("Breakable", new Color(1f, 0.75f, 0.8f));     // pink
+        public static readonly HitboxType Gate = new("Gate", new Color(0.0f, 0.0f, 0.5f));              // dark blue
+        public static readonly HitboxType HazardRespawn = new("Hazard Respawn", new Color(0.5f, 0.0f, 0.5f)); // purple
+        public static readonly HitboxType NonMantleRegion = new("Non-Mantle Region", new Color(0f, 0.3f, 0f)); // dark green
+        public static readonly HitboxType AlertRegion = new("Alert Region", new Color(0.9f, 0.6f, 0.4f)); // orange
+        public static readonly HitboxType Other = new("Other", new Color(0.7f, 0.7f, 0.7f));            // gray
 
 
+        public readonly string Name;
         public readonly Color Color;
         public readonly int Depth;
 
-        private HitboxType(Color color)
+        public bool Visible => !DebugMod.settings.HiddenHitboxTypes.Contains(Name);
+
+        private HitboxType(string name, Color color)
         {
+            Name = name;
             Color = color;
             Depth = count++;
+            All.Add(this);
         }
     }
 
@@ -186,7 +192,7 @@ public class HitboxRender : MonoBehaviour
         for (int i = array.Length - 1; i >= 0; i--)
         {
             var pair = array[i];
-            if (pair.Key.gameObject.layer == (int)PhysLayers.IGNORE_RAYCAST) continue;
+            if (pair.Key.gameObject.layer == (int)PhysLayers.IGNORE_RAYCAST || !pair.Value.Visible) continue;
             
             DrawHitbox(camera, pair.Key, pair.Value, lineWidth);
         }
