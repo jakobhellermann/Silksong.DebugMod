@@ -51,6 +51,9 @@ public class HitboxRender : MonoBehaviour
     
     public static HitboxRender Instance { get; private set; }
 
+    public static readonly List<(Collider2D Collider, HitboxType Type)> Hovered = [];
+    private static float HoverRadius => LineWidth * 2 + 3;
+
     private void Start()
     {
         Instance = this;
@@ -58,6 +61,53 @@ public class HitboxRender : MonoBehaviour
         {
             TryAddHitboxes(col);
         }
+    }
+
+    private void Update()
+    {
+        try
+        {
+            UpdateHovered();
+        }
+        catch (Exception e)
+        {
+            DebugMod.LogError($"Error updating hovered hitboxes: {e}");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Hovered.Clear();
+    }
+
+    private void UpdateHovered()
+    {
+        Hovered.Clear();
+
+        Camera camera = Camera.main;
+        if (camera == null || !Cursor.visible) return;
+
+        Vector2 mouse = Input.mousePosition;
+        Ray ray = camera.ScreenPointToRay(mouse);
+        float radius = HoverRadius;
+
+        foreach ((Collider2D collider2D, HitboxType type) in colliders)
+        {
+            if (!collider2D || !collider2D.isActiveAndEnabled || !type.Visible
+                || collider2D.gameObject.layer == (int)PhysLayers.IGNORE_RAYCAST) continue;
+
+            float z = collider2D.transform.position.z;
+            Vector2 mouseWorld = ray.GetPoint((z - ray.origin.z) / ray.direction.z);
+            Vector2 closest = collider2D.ClosestPoint(mouseWorld);
+            Vector2 closestScreen = camera.WorldToScreenPoint(new Vector3(closest.x, closest.y, z));
+
+            if (Vector2.Distance(closestScreen, mouse) <= radius)
+            {
+                Hovered.Add((collider2D, type));
+            }
+        }
+
+        Hovered.Sort((a, b) => a.Collider.bounds.size.sqrMagnitude.CompareTo(b.Collider.bounds.size.sqrMagnitude));
     }
 
     public void UpdateHitbox(GameObject go)
@@ -226,7 +276,8 @@ public class HitboxRender : MonoBehaviour
             var pair = array[i];
             if (pair.Key.gameObject.layer == (int)PhysLayers.IGNORE_RAYCAST || !pair.Value.Visible) continue;
             
-            DrawHitbox(camera, pair.Key, pair.Value, lineWidth);
+            bool hovered = Hovered.Exists(h => h.Collider == pair.Key);
+            DrawHitbox(camera, pair.Key, pair.Value, hovered ? lineWidth * 2 : lineWidth);
         }
     }
 
