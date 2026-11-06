@@ -1,5 +1,6 @@
 ﻿using DebugMod.Helpers;
 using DebugMod.Hitbox;
+using DebugMod.Interop;
 using DebugMod.MonoBehaviours;
 using GlobalEnums;
 using HarmonyLib;
@@ -163,6 +164,8 @@ public class SaveState
     #region saving
     public bool Save()
     {
+        using var _ = LoadstoneInterop.Scope("savestates", "save");
+
         //save level state before savestates so levers and dead enemies persist properly
         GameManager.instance.SaveLevelState();
         data.saveScene = GameManager.instance.GetSceneNameString();
@@ -241,6 +244,8 @@ public class SaveState
     #region loading
     public IEnumerator Load()
     {
+        using var _ = LoadstoneInterop.Scope("savestates", "load");
+
         if (!IsSet())
         {
             DebugMod.LogError("Attempted to load unset savestate");
@@ -262,6 +267,7 @@ public class SaveState
 
         loadingSavestate = this;
 
+        using var phase = LoadstoneInterop.Phases("savestates");
         IEnumerator enumerator = LoadImpl();
         while (true)
         {
@@ -293,10 +299,12 @@ public class SaveState
         TimeSpan loadingStateTime = loadingStateTimer.Elapsed;
         DebugMod.LogConsole("Loaded savestate in " + loadingStateTime.ToString(@"ss\.fff") + "s");
 
+        phase.Enter("hud fixes");
         yield return new WaitUntil(() => GameCameras.instance.hudCanvasSlideOut.gameObject);
         yield return null; // Not all HUD elements are ready immediately, wait one more frame
         HUDFixes();
 
+        phase.Enter("bench and water fixes");
         // Fix bench interactions
         foreach (RestBench bench in Object.FindObjectsByType<RestBench>(FindObjectsSortMode.None))
         {
@@ -323,6 +331,9 @@ public class SaveState
 
     private IEnumerator LoadImpl()
     {
+        using var phase = LoadstoneInterop.Phases("savestates");
+        phase.Enter("glitch fixes");
+
         //prevents silly things from happening
         TimeScale.Frozen = true;
         Time.fixedDeltaTime = 0.02f;
@@ -373,6 +384,7 @@ public class SaveState
         EventRegister.SendEvent("HAZARD RESPAWN RESET");
         #endregion
 
+        phase.Enter("close ui and cutscenes");
         // Close inventory and dialogue
         EventRegister.SendEvent("INVENTORY CANCEL");
         DialogueBox.EndConversation();
@@ -413,6 +425,7 @@ public class SaveState
             }
         }
 
+        phase.Enter("reset hero state");
         EventRegister.SendEvent("REST AREA MUSIC STOP");
         ToolItemManager.SetIsInCutscene(false);
         CameraBlurPlane.Spacing = 0f;
@@ -436,6 +449,7 @@ public class SaveState
         // Unparents player object and fixes interpolation
         HeroController.instance.ElevatorReset();
 
+        phase.Enter("end pending scene loads");
         // If another scene load operation is in progress, loading the scene will hang
         yield return ScenePreloader.ForceEndPendingOperations();
         // CustomSceneManager.Start fails to run if the scene is immediately unloaded. Leaves the scene dark on next respawn.
@@ -455,11 +469,13 @@ public class SaveState
 
         if (loadSafely)
         {
+            phase.Enter("dummy scene");
             string dummyScene = "Demo Start";
             Addressables.LoadSceneAsync($"Scenes/{dummyScene}");
             yield return new WaitUntil(() => USceneManager.GetActiveScene().name == dummyScene);
         }
 
+        phase.Enter("restore data");
         JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(data.savedSd), SceneData.instance);
         GameManager.instance.ResetSemiPersistentItems();
         RestoreSemiPersistent(data.semiPersistentBools, SceneData.instance.persistentBools);
@@ -494,6 +510,7 @@ public class SaveState
 
         sceneData[0].LoadHook();
 
+        phase.Enter("scene transition");
         GameManager.instance.BeginSceneTransition
         (
             new DebugModSaveStateSceneLoadInfo
@@ -513,6 +530,7 @@ public class SaveState
 
         if (LoadDuped)
         {
+            phase.Enter("load duped scenes");
             yield return new WaitUntil(() => GameManager.instance.IsInSceneTransition == false);
             for (int i = 1; i < sceneData.Length; i++)
             {
@@ -543,6 +561,7 @@ public class SaveState
             GameManager.instance.BeginScene();
         }
 
+        phase.Enter("apply state");
         HeroController.instance.CharmUpdate();
 
         // invalidates caches
@@ -591,6 +610,7 @@ public class SaveState
         HeroController.instance.gameObject.layer = (int)PhysLayers.PLAYER;
         HeroController.instance.FinishedEnteringScene();
 
+        phase.Enter("room specific");
         RoomSpecific.BackwardsCompat(data.saveScene, ref data.roomSpecificOptions);
 
         if (!string.IsNullOrEmpty(data.roomSpecificOptions))
@@ -604,10 +624,13 @@ public class SaveState
         //removes things like bench storage no clip float etc
         SaveStateGlitchFixes();
 
+        phase.Enter("after load hooks");
         AfterLoad?.Invoke(this);
 
+        phase.Enter("wait for transition finish");
         yield return new WaitUntil(() => !GameManager.instance.isLoading);
 
+        phase.Enter("finish");
         // For redundancy
         HeroController.instance.transform.position = data.savePos;
         DebugMod.noclipPos = HeroController.instance.transform.position;
