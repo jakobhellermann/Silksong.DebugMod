@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 using USceneManager = UnityEngine.SceneManagement.SceneManager;
@@ -140,6 +139,10 @@ public partial class SaveState
 
     [SerializeField]
     public SaveStateData data;
+
+    private partial IEnumerator PrepareSceneLoad(bool abortDeath);
+    private partial IEnumerator LoadDummyScene();
+    private partial IEnumerator LoadDupedScene(string sceneName);
 
     partial void SaveGameSpecific();
     partial void RestoreGameSpecific();
@@ -397,17 +400,7 @@ public partial class SaveState
         // Unparents player object and fixes interpolation
         HeroController.instance.ElevatorReset();
 
-        // If another scene load operation is in progress, loading the scene will hang
-        yield return ScenePreloader.ForceEndPendingOperations();
-        // CustomSceneManager.Start fails to run if the scene is immediately unloaded. Leaves the scene dark on next respawn.
-        // Without this wait, on the next respawn the scene stays black.
-        if (abortDeath && ScenePreloader._forceEndedOperations.Count > 0)
-            yield return null;
-        foreach (ScenePreloader.SceneLoadOp op in ScenePreloader._forceEndedOperations)
-        {
-            yield return Addressables.UnloadSceneAsync(op.Operation);
-        }
-        ScenePreloader._forceEndedOperations.Clear();
+        yield return PrepareSceneLoad(abortDeath);
 
         string previousScene = GameManager.instance.GetSceneNameString();
 
@@ -416,9 +409,7 @@ public partial class SaveState
 
         if (loadSafely)
         {
-            string dummyScene = "Demo Start";
-            Addressables.LoadSceneAsync($"Scenes/{dummyScene}");
-            yield return new WaitUntil(() => USceneManager.GetActiveScene().name == dummyScene);
+            yield return LoadDummyScene();
         }
 
         JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(data.savedSd), SceneData.instance);
@@ -493,8 +484,7 @@ public partial class SaveState
 
                 SceneWatcher.LoadedSceneInfo.activeInfo = sceneData[i];
                 DebugMod.LogDebug($"Loading  scene {i}: {sceneData[i].name}");
-                var loadOp = Addressables.LoadSceneAsync($"Scenes/{sceneData[i].name}", LoadSceneMode.Additive);
-                yield return loadOp;
+                yield return LoadDupedScene(sceneData[i].name);
                 SceneWatcher.LoadedSceneInfo.activeInfo = null;
                 GameManager.instance.RefreshTilemapInfo(sceneData[i].name);
                 GameManager.instance.cameraCtrl.SceneInit();

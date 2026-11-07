@@ -1,7 +1,12 @@
 using DebugMod.Helpers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using USceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DebugMod.SaveStates;
 
@@ -31,6 +36,33 @@ public partial class SaveState
                 Array.Copy(_data.semiPersistentInts, semiPersistentInts, _data.semiPersistentInts.Length);
             }
         }
+    }
+
+    private partial IEnumerator PrepareSceneLoad(bool abortDeath)
+    {
+        // If another scene load operation is in progress, loading the scene will hang
+        yield return ScenePreloader.ForceEndPendingOperations();
+        // CustomSceneManager.Start fails to run if the scene is immediately unloaded. Leaves the scene dark on next respawn.
+        // Without this wait, on the next respawn the scene stays black.
+        if (abortDeath && ScenePreloader._forceEndedOperations.Count > 0)
+            yield return null;
+        foreach (ScenePreloader.SceneLoadOp op in ScenePreloader._forceEndedOperations)
+        {
+            yield return Addressables.UnloadSceneAsync(op.Operation);
+        }
+        ScenePreloader._forceEndedOperations.Clear();
+    }
+
+    private partial IEnumerator LoadDummyScene()
+    {
+        string dummyScene = "Demo Start";
+        Addressables.LoadSceneAsync($"Scenes/{dummyScene}");
+        yield return new WaitUntil(() => USceneManager.GetActiveScene().name == dummyScene);
+    }
+
+    private partial IEnumerator LoadDupedScene(string sceneName)
+    {
+        yield return Addressables.LoadSceneAsync($"Scenes/{sceneName}", LoadSceneMode.Additive);
     }
 
     partial void SaveGameSpecific()
