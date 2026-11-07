@@ -1,5 +1,4 @@
-﻿using BepInEx;
-using DebugMod.Helpers;
+﻿using DebugMod.Helpers;
 using System;
 using TeamCherry.Localization;
 
@@ -17,7 +16,7 @@ internal static class I18NInterop
     {
         if (!InteropHelper.IsModInstalled(InteropHelper.I18NModId, "1.1.0")) return;
 
-        BaseUnityPlugin i18NPlugin = InteropHelper.GetPlugin(InteropHelper.I18NModId)!;
+        var i18NPlugin = InteropHelper.GetPlugin(InteropHelper.I18NModId)!;
         getLanguageOverride = () => (LanguageCode?)i18NPlugin.GetType().GetProperty("LanguageOverride")?.GetValue(i18NPlugin);
     }
 
