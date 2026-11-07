@@ -1,4 +1,4 @@
-#if HK1578
+#if HK1578_OR_OLDER
 namespace TeamCherry.Localization;
 
 internal static class Language

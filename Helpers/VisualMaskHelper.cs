@@ -134,7 +134,7 @@ public static partial class VisualMaskHelper
         bool IsMask(GameObject go)
         {
             if (IsGameSpecificMask(go)) return true;
-#if !HK1578
+#if !HK1578_OR_OLDER
             if (go.GetComponent<MaskerBlackout>()) return true;
 #endif
             if (go.GetComponent<BlurPlane>()) return true;

@@ -143,7 +143,7 @@ public static class UICommon
             }
         }
 
-#if HK1578
+#if HK1578_OR_OLDER
         // Not loaded yet when mods load at game start
         arial = Resources.GetBuiltinResource<Font>("Arial.ttf");
 #endif

@@ -313,7 +313,7 @@ public partial class SaveState
 #if SILKSONG
         HeroController.instance.hazardRespawnRoutine = null;
 #endif
-#if !HK1578
+#if !HK1578_OR_OLDER
         HeroController.instance.hazardInvulnRoutine = null;
 #endif
 
@@ -508,7 +508,7 @@ public partial class SaveState
             GameManager.instance.FadeSceneIn();
             GameManager.instance.isPaused = false;
             GameCameras.instance.ResumeCameraShake();
-            if (HeroController.SilentInstance != null)
+            if (HeroController._instance != null)
             {
                 HeroController.instance.UnPause();
             }
@@ -542,7 +542,7 @@ public partial class SaveState
         //bench storage
         GameManager.instance.SetPlayerDataBool(nameof(PlayerData.atBench), false);
 
-        if (HeroController.SilentInstance != null)
+        if (HeroController._instance != null)
         {
             if (HeroController.instance.cState.onConveyor || HeroController.instance.cState.onConveyorV || HeroController.instance.cState.inConveyorZone)
             {

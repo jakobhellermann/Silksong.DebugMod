@@ -17,7 +17,7 @@ public static class CommandPaletteCommands
         {
             registry.RegisterSubmenu(
                 () => Localization.Get(category.Key),
-                () => category.Select(action => new CommandPaletteItem.ActionItem(() => Localization.Get(action.Name), action.Action))
+                () => category.Select<BindAction, CommandPaletteItem>(action => new CommandPaletteItem.ActionItem(() => Localization.Get(action.Name), action.Action))
             );
         }
         
@@ -32,7 +32,7 @@ public static class CommandPaletteCommands
 
     private static IEnumerable<CommandPaletteItem> TeleportPoints()
     {
-#if HK1578
+#if HK1578_OR_OLDER
         // TODO(port/1.5.78): no SceneTeleportMap
         yield break;
 #else

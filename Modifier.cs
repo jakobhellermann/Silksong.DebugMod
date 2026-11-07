@@ -28,7 +28,7 @@ internal static class Modifiers
         (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) ? Modifier.Shift : 0) |
         (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl) ? Modifier.Ctrl : 0) |
         (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt) ? Modifier.Alt : 0)
-#if !HK1578
+#if !HK1578_OR_OLDER
         | (Input.GetKey(KeyCode.LeftMeta) || Input.GetKey(KeyCode.RightMeta) ? Modifier.Meta : 0)
 #endif
         ;
@@ -40,7 +40,7 @@ internal static class Modifiers
         KeyCode.LeftControl or KeyCode.RightControl => Modifier.Ctrl,
         KeyCode.LeftShift or KeyCode.RightShift => Modifier.Shift,
         KeyCode.LeftAlt or KeyCode.RightAlt => Modifier.Alt,
-#if !HK1578
+#if !HK1578_OR_OLDER
         KeyCode.LeftMeta or KeyCode.RightMeta => Modifier.Meta,
 #endif
         _ => Modifier.None
@@ -53,7 +53,7 @@ internal static class Modifiers
         Modifier.Ctrl => KeyCode.LeftControl,
         Modifier.Shift => KeyCode.LeftShift,
         Modifier.Alt => KeyCode.LeftAlt,
-#if !HK1578
+#if !HK1578_OR_OLDER
         Modifier.Meta => KeyCode.LeftMeta,
 #endif
         _ => throw new ArgumentException($"Cannot convert {modifier} to a key code", nameof(modifier))

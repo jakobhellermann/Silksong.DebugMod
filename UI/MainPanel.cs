@@ -405,7 +405,7 @@ public partial class MainPanel : CanvasPanel
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             ProcessStartInfo info = new("xdg-open");
-#if HK1578
+#if HK1578_OR_OLDER
             info.Arguments = $"\"{path}\"";
 #else
             info.ArgumentList.Add(path);

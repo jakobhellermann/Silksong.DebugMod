@@ -10,7 +10,7 @@ namespace DebugMod.UI;
 
 public partial class InfoPanel : CanvasPanel
 {
-    internal record InjectedInfo
+    internal class InjectedInfo
     {
         public readonly string Label;
         public readonly Func<string> Generator;
@@ -235,7 +235,7 @@ public partial class InfoPanel : CanvasPanel
     private void AppendInfo(string label, Func<bool> info) => AppendInfo(label, () => GetStringForBool(info()));
     private void AppendInfo<T>(string label, Func<T> info) => AppendInfo(label, () => info().ToString());
 
-    private void AppendInfo(IReadOnlyCollection<InjectedInfo> injectedInfo)
+    private void AppendInfo(ICollection<InjectedInfo> injectedInfo)
     {
         if (injectedInfo.Count == 0) return;
 

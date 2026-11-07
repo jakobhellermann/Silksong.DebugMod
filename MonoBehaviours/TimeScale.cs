@@ -98,6 +98,7 @@ public static class TimeScale
 
     // We keep one additional scalar on TimeManager, which is well-designed & manages multiplicative scaling for us :)
     
+#if !HK1578_OR_OLDER
     // On later patches (at least <=1.0.30000) TimeManager.UpdateTimeScale checks for IsCheatsEnabled;
     // we replace with our own method to shortcut this check when necessary.
     [HarmonyILManipulator]
@@ -117,6 +118,7 @@ public static class TimeScale
         cursor.Remove();
         cursor.EmitDelegate(() => IsUsingSpedUpTime || CheatManager.IsCheatsEnabled);
     }
+#endif
 
     // FreezeMoment and SetTimeScale (with duration) does not take time scale into account,
     // so this will force those method to scale unscaledDeltaTime
@@ -149,6 +151,14 @@ public static class TimeScale
             hook.Dispose();
     }
 
+#if HK1432_OR_OLDER
+    // TODO(port/1.4.3.2): check that ScaleFreeze finds its IL pattern in these
+    private static readonly MethodInfo[] FreezeCoroutines = (
+        from type in typeof(GameManager).GetNestedTypes(BindingFlags.NonPublic)
+        where type.Name.StartsWith("<FreezeMoment>") || type.Name.StartsWith("<SetTimeScale>")
+        select type.GetMethod("MoveNext", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+    ).ToArray();
+#else
     private static readonly MethodInfo[] FreezeCoroutines = (
         from method in typeof(GameManager).GetMethods()
         where method.Name.StartsWith("FreezeMoment") || method.Name.StartsWith("SetTimeScale")
@@ -159,6 +169,7 @@ public static class TimeScale
         into type
         select type.GetMethod("MoveNext", BindingFlags.NonPublic | BindingFlags.Instance)
     ).ToArray();
+#endif
 
 
     private static void ScaleFreeze(ILContext il)

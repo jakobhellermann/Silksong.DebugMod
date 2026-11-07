@@ -186,7 +186,7 @@ internal static class Extensions {
     }
 #endif
 
-#if HK1578
+#if HK1578_OR_OLDER
     extension(UnityEngine.SceneManagement.SceneManager)
     {
         public static int loadedSceneCount => UnityEngine.SceneManagement.SceneManager.sceneCount;

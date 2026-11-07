@@ -69,6 +69,13 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(HollowKnightVersion)' != ''">
+        <DefineConstants Condition="$([MSBuild]::VersionLessThanOrEquals('$(HollowKnightVersion)', '1.2.2.1'))">$(DefineConstants);HK1221_OR_OLDER</DefineConstants>
+        <DefineConstants Condition="$([MSBuild]::VersionLessThanOrEquals('$(HollowKnightVersion)', '1.3.1.5'))">$(DefineConstants);HK1315_OR_OLDER</DefineConstants>
+        <DefineConstants Condition="$([MSBuild]::VersionLessThanOrEquals('$(HollowKnightVersion)', '1.4.3.2'))">$(DefineConstants);HK1432_OR_OLDER</DefineConstants>
+        <DefineConstants Condition="$([MSBuild]::VersionLessThanOrEquals('$(HollowKnightVersion)', '1.5.78.11833'))">$(DefineConstants);HK1578_OR_OLDER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(HollowKnightVersion)' != ''">
         <TargetFrameworkMoniker>$(TargetFrameworkIdentifier),Version=$(TargetFrameworkVersion)</TargetFrameworkMoniker>
     </PropertyGroup>
 

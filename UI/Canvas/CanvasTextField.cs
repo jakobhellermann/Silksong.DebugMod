@@ -36,7 +36,7 @@ public class CanvasTextField : CanvasText
         inputField.transition = Selectable.Transition.None;
         inputField.enabled = false;
 
-#if HK1578
+#if HK1578_OR_OLDER
         // onEndEdit also fires on escape and deselect
         inputField.onEndEdit.AddListener(text =>
         {

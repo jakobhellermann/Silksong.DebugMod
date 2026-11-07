@@ -10,7 +10,7 @@
 	<Import Project="TargetFrameworks.props"/>
 
 	<PropertyGroup>
-		<TargetFrameworks>silksong;hk1512620-bepinex;hk1512620;hk1578</TargetFrameworks>
+		<TargetFrameworks>silksong;hk1512620-bepinex;hk1512620;hk1578;hk1432</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisMode>recommended</AnalysisMode>
@@ -60,12 +60,12 @@
 
 	<!-- must match the MonoMod version of the Modding API -->
 	<ItemGroup Condition="'$(ModLoader)' == 'ModdingApi'">
-		<PackageReference Include="HarmonyX" Version="2.16.1" Condition="'$(GameTarget)' != 'hk1578'"/>
-		<!-- 1.5.78 ships MonoMod.RuntimeDetour 21.4.29.1, the last HarmonyX built against 21.4 is 2.5.0 -->
-		<PackageReference Include="HarmonyX" Version="2.5.0" Condition="'$(GameTarget)' == 'hk1578'"/>
+		<PackageReference Include="HarmonyX" Version="2.16.1" Condition="'$(GameTarget)' != 'hk1578' And '$(GameTarget)' != 'hk1432'"/>
+		<!-- 1.4.3.2 and 1.5.78 ship MonoMod.RuntimeDetour 21.4.29.1, the last HarmonyX built against 21.4 is 2.5.0 -->
+		<PackageReference Include="HarmonyX" Version="2.5.0" Condition="'$(GameTarget)' == 'hk1578' Or '$(GameTarget)' == 'hk1432'"/>
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' And '$(TargetFrameworkVersion)' != 'v3.5'">
 		<Reference Include="System.IO.Compression"/>
 		<Reference Include="System.IO.Compression.FileSystem"/>
 	</ItemGroup>

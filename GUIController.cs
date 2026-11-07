@@ -502,7 +502,7 @@ public partial class GUIController : MonoBehaviour
         DebugMod.UpdateBind(bindName, binding);
     }
 
-#if HK1578
+#if HK1578_OR_OLDER
     internal static void OnCursor()
     {
         Cursor.visible = DebugMod.settings.ShowCursorWhileUnpaused || GameManager.instance.isPaused;

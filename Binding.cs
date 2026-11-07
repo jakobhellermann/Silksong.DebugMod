@@ -43,7 +43,7 @@ public readonly struct Binding : IEquatable<Binding>
             return true;
         }
 
-        bool isRegular = Key is >= KeyCode.Space and <= KeyCode.Tilde or >= KeyCode.Keypad0 and <= KeyCode.KeypadEquals;
+        bool isRegular = Key is >= KeyCode.Space and < KeyCode.Delete or >= KeyCode.Keypad0 and <= KeyCode.KeypadEquals;
         return isRegular && Modifiers == 0;
     }
 

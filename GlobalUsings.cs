@@ -4,7 +4,7 @@ global using GameSceneManager = CustomSceneManager;
 #else
 global using GameSceneManager = global::SceneManager;
 #endif
-#if HK1578
+#if HK1578_OR_OLDER
 global using LanguageCode = Language.LanguageCode;
 #endif
 #if BEPINEX

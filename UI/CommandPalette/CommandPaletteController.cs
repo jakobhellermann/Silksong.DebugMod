@@ -250,7 +250,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     private void SetGameInputBlocked(bool shouldBlock)
     {
-        HeroController hero = HeroController.SilentInstance;
+        HeroController hero = HeroController._instance;
         if (!hero) return;
         if (shouldBlock) hero.AddInputBlocker(inputBlocker);
         else hero.RemoveInputBlocker(inputBlocker);

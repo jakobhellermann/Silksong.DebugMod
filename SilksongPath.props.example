@@ -7,6 +7,7 @@
   </PropertyGroup>
   
   <!-- This is only required if you want to automatically copy the mod to the game on build -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'hk1432'"><HkGameDir>$(GameBaseDir)/Hollow Knight-1.4.3.2</HkGameDir></PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'hk1578'"><HkGameDir>$(GameBaseDir)/Hollow Knight-1.5.78.11833</HkGameDir></PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'hk1512620'"><HkGameDir>$(GameBaseDir)/Hollow Knight</HkGameDir></PropertyGroup>
   <PropertyGroup Condition="'$(HkGameDir)' != ''"><SilksongPluginsFolder>$(HkGameDir)/hollow_knight_Data/Managed/Mods</SilksongPluginsFolder></PropertyGroup>

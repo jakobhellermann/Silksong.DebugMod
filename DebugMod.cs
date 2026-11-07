@@ -162,7 +162,7 @@ public partial class DebugMod : ModLoaderBase
         ModHooks.BeforeSceneLoadHook += OnLevelUnload;
         ModHooks.TakeHealthHook += PlayerDamaged;
         ModHooks.FinishedLoadingModsHook += OnFinishedLoadingMods;
-#if HK1578
+#if HK1578_OR_OLDER
         ModHooks.CursorHook += GUIController.OnCursor;
 #endif
 
@@ -211,7 +211,7 @@ public partial class DebugMod : ModLoaderBase
         ModHooks.BeforeSceneLoadHook -= OnLevelUnload;
         ModHooks.TakeHealthHook -= PlayerDamaged;
         ModHooks.FinishedLoadingModsHook -= OnFinishedLoadingMods;
-#if HK1578
+#if HK1578_OR_OLDER
         ModHooks.CursorHook -= GUIController.OnCursor;
 #endif
 

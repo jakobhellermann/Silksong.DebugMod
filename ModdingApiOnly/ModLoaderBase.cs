@@ -67,7 +67,10 @@ public abstract class ModLoaderBase : Mod
 
     private class CoroutineHost : MonoBehaviour;
 
-    internal record ModInfo(string Location);
+    internal class ModInfo(string location)
+    {
+        public string Location { get; } = location;
+    }
 
     internal class ModLogger(Loggable loggable)
     {
