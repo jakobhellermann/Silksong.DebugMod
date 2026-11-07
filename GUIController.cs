@@ -502,6 +502,12 @@ public partial class GUIController : MonoBehaviour
         DebugMod.UpdateBind(bindName, binding);
     }
 
+#if HK1578
+    internal static void OnCursor()
+    {
+        Cursor.visible = DebugMod.settings.ShowCursorWhileUnpaused || GameManager.instance.isPaused;
+    }
+#else
     [HarmonyPatch(typeof(InputHandler), nameof(InputHandler.SetCursorVisible))]
     [HarmonyPrefix]
     private static void SetCursorVisible(ref bool value)
@@ -512,4 +518,5 @@ public partial class GUIController : MonoBehaviour
             value = true;
         }
     }
+#endif
 }
