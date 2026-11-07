@@ -255,7 +255,7 @@ public partial class DebugMod : ModLoaderBase
             return;
         }
 
-        settings.binds = new Dictionary<string, Binding>(settings.binds.OrderBy(pair => pair.Key));
+        settings.binds = settings.binds.OrderBy(pair => pair.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
 
         try
         {

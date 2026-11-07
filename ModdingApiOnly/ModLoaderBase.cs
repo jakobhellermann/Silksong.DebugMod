@@ -33,11 +33,11 @@ public abstract class ModLoaderBase : Mod
         FieldInfo field = typeof(ModLoader).GetField("ModInstancesByAssembly", BindingFlags.NonPublic | BindingFlags.Static)
             ?? throw new MissingFieldException(nameof(ModLoader), "ModInstancesByAssembly");
         var modsByAssembly = (Dictionary<string, List<ModLoader.ModInstance>>)field.GetValue(null);
-        foreach ((string path, List<ModLoader.ModInstance> mods) in modsByAssembly)
+        foreach (var pair in modsByAssembly)
         {
-            if (mods.Any(mod => mod.Mod == this))
+            if (pair.Value.Any(mod => mod.Mod == this))
             {
-                return path;
+                return pair.Key;
             }
         }
 

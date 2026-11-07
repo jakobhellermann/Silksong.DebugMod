@@ -63,6 +63,11 @@
 		<PackageReference Include="HarmonyX" Version="2.16.1"/>
 	</ItemGroup>
 
+	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
+		<Reference Include="System.IO.Compression"/>
+		<Reference Include="System.IO.Compression.FileSystem"/>
+	</ItemGroup>
+
 	<ItemGroup Condition="'$(SilksongVersion)' != ''">
 		<PackageReference Include="UnityEngine.Modules" Version="6000.0.50" IncludeAssets="compile"/>
 		<PackageReference Include="Silksong.GameLibs" Version="*-*" PrivateAssets="all"/>

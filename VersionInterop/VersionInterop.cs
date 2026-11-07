@@ -185,4 +185,20 @@ internal static class Extensions {
         }
     }
 #endif
+
+#if HK1578
+    extension(UnityEngine.SceneManagement.SceneManager)
+    {
+        public static int loadedSceneCount => UnityEngine.SceneManagement.SceneManager.sceneCount;
+    }
+
+    extension(UnityEngine.Color color)
+    {
+        public UnityEngine.Color SetAlpha(float alpha)
+        {
+            color.a = alpha;
+            return color;
+        }
+    }
+#endif
 }
