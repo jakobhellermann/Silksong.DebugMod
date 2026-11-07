@@ -28,7 +28,9 @@ public partial class GUIController : MonoBehaviour
     private static KeyCode pendingModifierKey;
     private Size resolution;
     internal LanguageCode language;
+#if SILKSONG
     private bool benchwarpShifted;
+#endif
     
     internal static event Action<string> RebindTargetChanged;
     internal static string RebindTarget
@@ -125,7 +127,9 @@ public partial class GUIController : MonoBehaviour
             CommandPaletteController.Unload();
             resolution = new Size(Screen.width, Screen.height);
             language = GetLanguage();
+#if SILKSONG
             benchwarpShifted = false;
+#endif
 
             if (canvas)
             {
@@ -207,6 +211,7 @@ public partial class GUIController : MonoBehaviour
             BuildMenus();
         }
 
+#if SILKSONG
         // Move out of the way of benchwarp if it's installed
         if (InteropHelper.IsModInstalled(InteropHelper.BenchwarpModId))
         {
@@ -230,6 +235,7 @@ public partial class GUIController : MonoBehaviour
                 }
             }
         }
+#endif
 
         if (ForceHideUI())
         {

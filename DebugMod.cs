@@ -1,4 +1,3 @@
-using BepInEx;
 using DebugMod.Helpers;
 using DebugMod.MonoBehaviours;
 using DebugMod.SaveStates;
@@ -19,9 +18,8 @@ using USceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DebugMod;
 
-[BepInAutoPlugin("io.github.hk-speedrunning.debugmod")]
 [HarmonyPatch]
-public partial class DebugMod : BaseUnityPlugin
+public partial class DebugMod : ModLoaderBase
 {
     private static GameManager _gm;
     private static InputHandler _ih;
@@ -88,18 +86,24 @@ public partial class DebugMod : BaseUnityPlugin
 
     public void Awake()
     {
+#if BEPINEX
         settings.InitMenu(Config);
+#endif
         LoadSettings();
 
         if (settings.LogUnityExceptions
+#if BEPINEX
             // If there's an existing unity log source, then messages are logged already
             // so no need to log them separately
-            && !BepInEx.Logging.Logger.Sources.Any(x => x is BepInEx.Logging.UnityLogSource))
+            && !BepInEx.Logging.Logger.Sources.Any(x => x is BepInEx.Logging.UnityLogSource)
+#endif
+           )
         {
             Application.logMessageReceived += HandleUnityLog;
         }
 
         bindActions.Clear();
+        bindsByMethod.Clear();
         foreach (MethodInfo method in typeof(BindableFunctions).GetMethods(BindingFlags.Public | BindingFlags.Static))
         {
             object[] attributes = method.GetCustomAttributes(typeof(BindableMethod), false);
@@ -468,26 +472,6 @@ public partial class DebugMod : BaseUnityPlugin
     public static void AddTranslationSheet(string sheet)
     {
         Localization.AddSheet(sheet);
-    }
-
-    public static void LogDebug(string message)
-    {
-        instance.Logger.LogDebug(message);
-    }
-
-    public static void Log(string message)
-    {
-        instance.Logger.LogInfo(message);
-    }
-
-    public static void LogWarn(string message)
-    {
-        instance.Logger.LogWarning(message);
-    }
-
-    public static void LogError(string message)
-    {
-        instance.Logger.LogError(message);
     }
 
     public static void LogConsole(string message)

@@ -10,7 +10,7 @@
 	<Import Project="TargetFrameworks.props"/>
 
 	<PropertyGroup>
-		<TargetFrameworks>silksong;hk1512620-bepinex</TargetFrameworks>
+		<TargetFrameworks>silksong;hk1512620-bepinex;hk1512620</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisMode>recommended</AnalysisMode>
