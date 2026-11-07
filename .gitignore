@@ -309,3 +309,5 @@ __pycache__/
 Source/*.zip
 Source/SHA.txt
 Source/VERSION.txt
+
+/packages.lock.json
