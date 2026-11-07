@@ -42,6 +42,7 @@ public sealed class CommandPaletteController : MonoBehaviour
     private int selectedIndex;
     private int firstVisibleIndex;
     private bool mouseMovedSinceOpen;
+    private Vector3 mousePositionOnOpen;
     private string queryBeforeWordDelete;
     private readonly object freezeOwner = new();
     private readonly object inputBlocker = new();
@@ -130,7 +131,7 @@ public sealed class CommandPaletteController : MonoBehaviour
     {
         if (!IsOpen) return;
 
-        if (Input.mousePositionDelta != Vector3.zero) mouseMovedSinceOpen = true;
+        if (Input.mousePosition != mousePositionOnOpen) mouseMovedSinceOpen = true;
 
         if (Input.GetMouseButtonDown(0) && !panel.IsMouseOver() && Time.frameCount > _lastToggleFrame)
         {
@@ -231,6 +232,7 @@ public sealed class CommandPaletteController : MonoBehaviour
         SetQuery("");
         selectedIndex = 0;
         mouseMovedSinceOpen = false;
+        mousePositionOnOpen = Input.mousePosition;
         panel.ActiveSelf = true;
         SetGameInputBlocked(true);
         queryField.Activate();
