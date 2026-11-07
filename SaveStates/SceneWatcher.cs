@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Object = UnityEngine.Object;
 using USceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DebugMod.SaveStates;
@@ -17,6 +16,9 @@ public static partial class SceneWatcher
 
     private static Dictionary<Scene, int> scenesWithManager;
 
+    private static partial bool HasSceneManager(Scene scene);
+    private static partial void SetGameSpecificSceneName(GameManager gameManager, string sceneName);
+
     private static void AddScene(Scene scene, LoadSceneMode mode, bool checkSceneManager = true)
     {
         if (mode == LoadSceneMode.Single)
@@ -25,8 +27,7 @@ public static partial class SceneWatcher
         LoadedSceneInfo d = new(scene);
         scenes.Add(d);
 
-        if (checkSceneManager && Object.FindObjectsByType<CustomSceneManager>(FindObjectsSortMode.None)
-                .Any(m => m.gameObject.scene == scene))
+        if (checkSceneManager && HasSceneManager(scene))
         {
             scenesWithManager.Add(scene, d.id);
         }
@@ -114,13 +115,8 @@ public static partial class SceneWatcher
         {
             if (activeInfo != null)
             {
-                if (activeInfo.activeSceneWhenLoaded != __instance.sceneName)
-                {
-                    __instance.lastSceneName = __instance.sceneName;
-                }
+                SetGameSpecificSceneName(__instance, activeInfo.activeSceneWhenLoaded);
                 __instance.sceneName = activeInfo.activeSceneWhenLoaded;
-                __instance.rawSceneName = activeInfo.activeSceneWhenLoaded;
-                __instance.sceneNameHash = activeInfo.activeSceneWhenLoaded.GetHashCode();
 
                 return false;
             }
