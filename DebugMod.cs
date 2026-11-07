@@ -15,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using USceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DebugMod;
 
@@ -31,7 +32,7 @@ public partial class DebugMod : BaseUnityPlugin
     private static Collider2D _refHeroCollider;
     private static LightBlurredBackground _lbb;
 
-    internal static GameManager GM => _gm != null ? _gm : (_gm = GameManager.SilentInstance);
+    internal static GameManager GM => _gm != null ? _gm : (_gm = GameManager._instance);
     internal static InputHandler IH => _ih != null ? _ih : (_ih = GM.inputHandler);
     internal static HeroController HC => _hc != null ? _hc : (_hc = HeroController.instance);
     internal static GameObject RefKnight => _refKnight != null ? _refKnight : (_refKnight = HC.gameObject);
@@ -144,7 +145,7 @@ public partial class DebugMod : BaseUnityPlugin
 
         PlayerDeathWatcher.Init();
 
-        SceneManager.activeSceneChanged += LevelActivated;
+        USceneManager.activeSceneChanged += LevelActivated;
         ModHooks.AfterSavegameLoadHook += LoadCharacter;
         ModHooks.NewGameHook += NewCharacter;
         ModHooks.BeforeSceneLoadHook += OnLevelUnload;
@@ -153,7 +154,7 @@ public partial class DebugMod : BaseUnityPlugin
 
         KeyBindLock = false;
 
-        bool isHotReload = GameManager.SilentInstance != null;
+        bool isHotReload = GameManager._instance != null;
         if (isHotReload)
         {
             OnFinishedLoadingMods();
@@ -188,7 +189,7 @@ public partial class DebugMod : BaseUnityPlugin
 
         Application.logMessageReceived -= HandleUnityLog;
 
-        SceneManager.activeSceneChanged -= LevelActivated;
+        USceneManager.activeSceneChanged -= LevelActivated;
         ModHooks.AfterSavegameLoadHook -= LoadCharacter;
         ModHooks.NewGameHook -= NewCharacter;
         ModHooks.BeforeSceneLoadHook -= OnLevelUnload;

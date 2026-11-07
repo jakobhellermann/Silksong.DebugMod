@@ -2,6 +2,7 @@ using HutongGames.PlayMaker;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using USceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace DebugMod.Helpers;
 
@@ -30,7 +31,7 @@ internal static partial class Utils
     {
         string[] parts = path.Split('/');
 
-        GameObject go = SceneManager.GetActiveScene().GetRootGameObjects().First(x => x.name == parts[0]);
+        GameObject go = USceneManager.GetActiveScene().GetRootGameObjects().First(x => x.name == parts[0]);
 
         for (int i = 1; i < parts.Length; i++)
         {
