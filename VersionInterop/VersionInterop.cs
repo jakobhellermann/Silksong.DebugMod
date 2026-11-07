@@ -201,4 +201,22 @@ internal static class Extensions {
         }
     }
 #endif
+
+#if HK1315_OR_OLDER
+    extension(GameManager gm)
+    {
+        public bool TimeSlowed => gm.timeSlowed;
+
+        public int timeSlowedCount
+        {
+            get => gm.timeSlowed ? 1 : 0;
+            set => gm.timeSlowed = value > 0;
+        }
+    }
+
+    extension(Constants)
+    {
+        public static T GetConstantValue<T>(string constantName) => (T)typeof(Constants).GetField(constantName).GetValue(null);
+    }
+#endif
 }
