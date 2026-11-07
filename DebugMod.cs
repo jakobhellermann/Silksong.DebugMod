@@ -142,8 +142,16 @@ public partial class DebugMod : BaseUnityPlugin
         SaveStateManager.Initialize();
         TimeScale.Initialize();
 
-        harmony = new Harmony(Id);
-        harmony.PatchAll();
+        try
+        {
+            harmony = new Harmony(Id);
+            harmony.PatchAll();
+        }
+        catch (Exception e)
+        {
+            LogError($"Failed to patch methods with harmony: {e}");
+            throw;
+        }
 
         PlayerDeathWatcher.Init();
 
