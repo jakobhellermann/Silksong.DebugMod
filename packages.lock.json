@@ -393,7 +393,7 @@
       }
     }
   },
-  "hk1512620": {
+  "hk1512620-bepinex": {
     "framework": ".NETStandard,Version=v2.1",
     "dependencies": {
       "BepInEx.Analyzers": {
