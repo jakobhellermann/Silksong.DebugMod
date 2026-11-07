@@ -405,7 +405,11 @@ public partial class MainPanel : CanvasPanel
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             ProcessStartInfo info = new("xdg-open");
+#if HK1578
+            info.Arguments = $"\"{path}\"";
+#else
             info.ArgumentList.Add(path);
+#endif
             info.UseShellExecute = false; // required if setting environment variables
             info.EnvironmentVariables.Remove("LD_PRELOAD");
             Process.Start(info);

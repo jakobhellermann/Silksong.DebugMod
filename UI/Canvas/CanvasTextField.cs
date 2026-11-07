@@ -36,8 +36,15 @@ public class CanvasTextField : CanvasText
         inputField.transition = Selectable.Transition.None;
         inputField.enabled = false;
 
+#if HK1578
+        // onEndEdit also fires on escape and deselect
+        inputField.onEndEdit.AddListener(text =>
+        {
+            if (!Input.GetKeyDown(KeyCode.Return) && !Input.GetKeyDown(KeyCode.KeypadEnter)) return;
+#else
         inputField.onSubmit.AddListener(text =>
         {
+#endif
             Text = text;
 
             try

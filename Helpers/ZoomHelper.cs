@@ -11,6 +11,10 @@ public static class ZoomHelper
     {
         float zoomFactor = GameCameras.instance.tk2dCam.ZoomFactor;
         float newFOV = 2 * Mathf.Atan(Mathf.Tan(DEFAULT_FOV / 2 * Mathf.Deg2Rad) / zoomFactor) * Mathf.Rad2Deg;
+#if HK1578
+        // TODO(port/1.5.78): do we need this
+#else
         DebugMod.LBB.OnCameraFovChanged(newFOV);
+#endif
     }
 }

@@ -143,6 +143,11 @@ public static class UICommon
             }
         }
 
+#if HK1578
+        // Not loaded yet when mods load at game start
+        arial = Resources.GetBuiltinResource<Font>("Arial.ttf");
+#endif
+
         if (trajanBold == null || trajanNormal == null || arial == null) DebugMod.LogError("Could not find game fonts");
 
         string[] resourceNames = Assembly.GetExecutingAssembly().GetManifestResourceNames();

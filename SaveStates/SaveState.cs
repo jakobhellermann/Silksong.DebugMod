@@ -313,7 +313,9 @@ public partial class SaveState
 #if SILKSONG
         HeroController.instance.hazardRespawnRoutine = null;
 #endif
+#if !HK1578
         HeroController.instance.hazardInvulnRoutine = null;
+#endif
 
         //fixes knockback storage
         HeroController.instance.CancelDamageRecoil();

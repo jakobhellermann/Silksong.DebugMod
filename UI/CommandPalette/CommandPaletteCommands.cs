@@ -32,6 +32,10 @@ public static class CommandPaletteCommands
 
     private static IEnumerable<CommandPaletteItem> TeleportPoints()
     {
+#if HK1578
+        // TODO(port/1.5.78): no SceneTeleportMap
+        yield break;
+#else
         Dictionary<string, SceneTeleportMap.SceneInfo> teleportMap = SceneTeleportMap.GetTeleportMap();
         if (teleportMap == null) yield break;
 
@@ -45,6 +49,7 @@ public static class CommandPaletteCommands
                     searchChildren: false
                 )));
         }
+#endif
     }
 
     private static IEnumerator Teleport(string scene, string gate)

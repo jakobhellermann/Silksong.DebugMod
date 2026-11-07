@@ -134,7 +134,9 @@ public static partial class VisualMaskHelper
         bool IsMask(GameObject go)
         {
             if (IsGameSpecificMask(go)) return true;
+#if !HK1578
             if (go.GetComponent<MaskerBlackout>()) return true;
+#endif
             if (go.GetComponent<BlurPlane>()) return true;
             if (go.name.Contains("black_fader")) return true;
             if (go.name.Contains("haze")) return true;
