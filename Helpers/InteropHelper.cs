@@ -8,6 +8,7 @@ internal static class InteropHelper
 {
     internal static string BenchwarpModId = "io.github.homothetyhk.benchwarp";
     internal static string I18NModId = "org.silksong-modding.i18n";
+    internal static string LoadstoneModId = "io.github.jakobhellermann.loadstone";
 
     internal static BaseUnityPlugin GetPlugin(string id)
     {
