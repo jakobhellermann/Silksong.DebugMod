@@ -722,6 +722,7 @@ public class MainPanel : CanvasPanel
             quillTile.Get<CanvasImage>("Icon").SetImage(UICommon.images[image]);
         };
 
+#if SILKSONG
         AppendLabeledTile("ITEMS_FARSIGHT", () => PlayerData.instance.ConstructedFarsight,
             () => PlayerData.instance.ConstructedFarsight = !PlayerData.instance.ConstructedFarsight,
             image: "Inv_Farsight");
@@ -930,6 +931,7 @@ public class MainPanel : CanvasPanel
                 }
             }
         }
+#endif
     }
 
     private static void OpenFolder(string path)
