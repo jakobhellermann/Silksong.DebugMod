@@ -10,7 +10,7 @@ using USceneManager = UnityEngine.SceneManagement.SceneManager;
 namespace DebugMod.SaveStates;
 
 [HarmonyPatch]
-public static class SceneWatcher
+public static partial class SceneWatcher
 {
     private static List<LoadedSceneInfo> scenes;
     public static ReadOnlyCollection<LoadedSceneInfo> LoadedScenes => scenes.AsReadOnly();
@@ -59,16 +59,14 @@ public static class SceneWatcher
         scenes.RemoveAt(index);
     }
 
-    [HarmonyPatch(typeof(CustomSceneManager), nameof(CustomSceneManager.Start))]
-    [HarmonyPostfix]
-    private static void OnCustomSceneManagerStart(CustomSceneManager __instance)
+    private static void OnSceneManagerStart(Scene scene)
     {
-        if (scenesWithManager == null || !scenesWithManager.ContainsKey(__instance.gameObject.scene))
+        if (scenesWithManager == null || !scenesWithManager.ContainsKey(scene))
             return;
 
-        int id = scenesWithManager[__instance.gameObject.scene];
+        int id = scenesWithManager[scene];
         LoadedSceneInfo lsi = scenes.FirstOrDefault(i => i.id == id);
-        scenesWithManager.Remove(__instance.gameObject.scene);
+        scenesWithManager.Remove(scene);
 
         if (lsi != null)
             lsi.activeSceneWhenLoaded = GameManager.instance.sceneName;
