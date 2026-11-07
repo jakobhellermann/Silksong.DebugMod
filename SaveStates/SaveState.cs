@@ -19,7 +19,7 @@ namespace DebugMod.SaveStates;
 /// Handles struct SaveStateData and individual SaveState operations
 /// </summary>
 [HarmonyPatch]
-public class SaveState
+public partial class SaveState
 {
     // Some mods (ItemChanger) check type to detect vanilla scene loads.
     private class DebugModSaveStateSceneLoadInfo : GameManager.SceneLoadInfo { }
@@ -34,20 +34,16 @@ public class SaveState
     public static event Action<SaveState> AfterLoad;
 
     [Serializable]
-    public class SaveStateData
+    public partial class SaveStateData
     {
         public string saveStateIdentifier;
         public string saveScene;
         public PlayerData savedPd;
         public SceneData savedSd;
-        public SceneData.SerializableBoolData[] semiPersistentBools;
-        public SceneData.SerializableIntData[] semiPersistentInts;
         public Vector3 savePos;
         public bool facingLeft; // for backwards compatibility
         public bool facingRight;
         public bool isKinematized;
-        public int evoState;
-        public bool isMaggoted;
         public List<string> toolAmountsOverride;
         public string[] loadedScenes;
         public string[] loadedSceneActiveScenes;
@@ -56,6 +52,8 @@ public class SaveState
         [NonSerialized] public Dictionary<string, string> customData;
 
         internal SaveStateData() { }
+
+        partial void CopyGameSpecific(SaveStateData _data);
 
         internal SaveStateData(SaveStateData _data)
         {
@@ -68,8 +66,6 @@ public class SaveState
             facingLeft = _data.facingLeft;
             facingRight = _data.facingRight;
             isKinematized = _data.isKinematized;
-            evoState = _data.evoState;
-            isMaggoted = _data.isMaggoted;
             roomSpecificOptions = _data.roomSpecificOptions;
 
             if (_data.toolAmountsOverride is not null)
@@ -77,17 +73,7 @@ public class SaveState
                 toolAmountsOverride = new List<string>(_data.toolAmountsOverride);
             }
 
-            if (_data.semiPersistentBools is not null)
-            {
-                semiPersistentBools = new SceneData.SerializableBoolData[_data.semiPersistentBools.Length];
-                Array.Copy(_data.semiPersistentBools, semiPersistentBools, _data.semiPersistentBools.Length);
-            }
-
-            if (_data.semiPersistentInts is not null)
-            {
-                semiPersistentInts = new SceneData.SerializableIntData[_data.semiPersistentInts.Length];
-                Array.Copy(_data.semiPersistentInts, semiPersistentInts, _data.semiPersistentInts.Length);
-            }
+            CopyGameSpecific(_data);
 
             if (_data.loadedScenes is not null)
             {
@@ -155,6 +141,9 @@ public class SaveState
     [SerializeField]
     public SaveStateData data;
 
+    partial void SaveGameSpecific();
+    partial void RestoreGameSpecific();
+
     internal SaveState()
     {
         data = new SaveStateData();
@@ -180,14 +169,11 @@ public class SaveState
 
         data.savedPd = JsonUtility.FromJson<PlayerData>(JsonUtility.ToJson(PlayerData.instance));
         data.savedSd = JsonUtility.FromJson<SceneData>(JsonUtility.ToJson(SceneData.instance));
-        data.semiPersistentBools = SaveSemiPersistent(SceneData.instance.persistentBools);
-        data.semiPersistentInts = SaveSemiPersistent(SceneData.instance.persistentInts);
+        SaveGameSpecific();
         data.savePos = HeroController.instance.gameObject.transform.position;
         data.facingLeft = !HeroController.instance.cState.facingRight;
         data.facingRight = HeroController.instance.cState.facingRight;
         data.isKinematized = HeroController.instance.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic;
-        data.evoState = HeroController.instance.hunterUpgState.CurrentMeterHits;
-        data.isMaggoted = HeroController.instance.cState.isMaggoted;
 
         if (PlayerData.instance.toolAmountsOverride != null)
         {
@@ -211,31 +197,6 @@ public class SaveState
         return true;
     }
 
-    private static TContainer[] SaveSemiPersistent<TValue, TContainer>(SceneData.PersistentItemDataCollection<TValue, TContainer> collection)
-        where TContainer : SceneData.SerializableItemData<TValue>, new()
-    {
-        List<TContainer> list = [];
-
-        foreach (Dictionary<string, PersistentItemData<TValue>> scene in collection.scenes.Values)
-        {
-            foreach (PersistentItemData<TValue> item in scene.Values)
-            {
-                if (item.IsSemiPersistent)
-                {
-                    TContainer container = new()
-                    {
-                        SceneName = item.SceneName,
-                        ID = item.ID,
-                        Value = item.Value,
-                        Mutator = item.Mutator,
-                    };
-                    list.Add(container);
-                }
-            }
-        }
-
-        return list.ToArray();
-    }
     #endregion
 
     #region loading
@@ -462,8 +423,7 @@ public class SaveState
 
         JsonUtility.FromJsonOverwrite(JsonUtility.ToJson(data.savedSd), SceneData.instance);
         GameManager.instance.ResetSemiPersistentItems();
-        RestoreSemiPersistent(data.semiPersistentBools, SceneData.instance.persistentBools);
-        RestoreSemiPersistent(data.semiPersistentInts, SceneData.instance.persistentInts);
+        RestoreGameSpecific();
 
         StaticVariableList.ClearSceneTransitions(); // Clears cached data like quest board contents
         GameManager.ReportUnload(previousScene); // Clears object pools in case the same scene is reloaded
@@ -631,30 +591,6 @@ public class SaveState
         TimeScale.Frozen = false;
     }
 
-    private static void RestoreSemiPersistent<TValue, TContainer>(TContainer[] list, SceneData.PersistentItemDataCollection<TValue, TContainer> collection)
-        where TContainer : SceneData.SerializableItemData<TValue>, new()
-    {
-        if (list != null)
-        {
-            foreach (TContainer container in list)
-            {
-                if (!collection.scenes.ContainsKey(container.SceneName))
-                {
-                    collection.scenes.Add(container.SceneName, []);
-                }
-
-                collection.scenes[container.SceneName][container.ID] = new PersistentItemData<TValue>
-                {
-                    SceneName = container.SceneName,
-                    ID = container.ID,
-                    Value = container.Value,
-                    Mutator = container.Mutator,
-                    IsSemiPersistent = true,
-                };
-            }
-        }
-    }
-
     //these are toggleable, as they will prevent glitches from persisting
     private void SaveStateGlitchFixes()
     {
@@ -695,66 +631,7 @@ public class SaveState
     }
 
     //Moving all HUD related code to here for clarity
-    private void HUDFixes()
-    {
-        Object.FindAnyObjectByType<InventoryPaneList>()?.gameObject?.LocateMyFSM("Inventory Control")?.SetState("Close");
-
-        if (CurrencyCounter._currencyCounters.TryGetValue(CurrencyType.Money, out List<CurrencyCounter> list))
-        {
-            foreach (CurrencyCounter counter in list)
-            {
-                counter.geoTextMesh.Text = data.savedPd.geo.ToString();
-            }
-        }
-        if (CurrencyCounter._currencyCounters.TryGetValue(CurrencyType.Shard, out list))
-        {
-            foreach (CurrencyCounter counter in list)
-            {
-                counter.geoTextMesh.Text = data.savedPd.ShellShards.ToString();
-            }
-        }
-
-        PlayerData.instance.health = data.savedPd.health;
-
-        // Resets maggots, lifeblood overdose, buff tools, etc.
-        HeroController.instance.ClearEffects();
-
-        // Need to be done after ClearEffects()
-        if (data.isMaggoted)
-        {
-            HeroController.instance.cState.isMaggoted = true; // Avoids sound effect
-            HeroController.instance.SetIsMaggoted(true);
-            Utils.FindFSM("Maggots", "Maggot Effect").SetState("Is Maggoted?");
-        }
-
-        HeroController.instance.hunterUpgState = new HeroController.HunterUpgCrestStateInfo { CurrentMeterHits = data.evoState };
-
-        // Reset timers
-        if (ToolItemManager.IsToolEquipped("Sprintmaster"))
-        {
-            HeroController.instance.gameObject.LocateMyFSM("Sprint Silk Usage").SetState("Reset Timer");
-        }
-        HeroController.instance.SetFrostAmount(0f);
-
-        // TODO: restore blue health instead of clearing it
-        PlayerData.instance.healthBlue = 0;
-        EventRegister.SendEvent("HEALTH UPDATE");
-
-        HudHelper.RefreshMasks();
-        HudHelper.RefreshSpool();
-
-        // Spawns tool icons if they weren't already visible
-        EventRegister.SendEvent("LAST HP ADDED");
-
-        // Update active crest behind health display
-        BindOrbHudFrame bindOrb = Object.FindAnyObjectByType<BindOrbHudFrame>();
-        if (bindOrb)
-        {
-            bindOrb.isActive = true;
-            bindOrb.currentFrameCrest = null;
-            bindOrb.Refresh(true, false);
-        }
-    }
+    private partial void HUDFixes();
     #endregion
 
     #region helper functionality
