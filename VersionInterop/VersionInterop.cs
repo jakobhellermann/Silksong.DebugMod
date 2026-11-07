@@ -82,6 +82,7 @@ internal static class Extensions {
         public void TakeMana(int amount) => hero.TakeSilk(amount);
         public void AddMana(int amount, bool heroEffect) => hero.AddSilk(amount, heroEffect);
         public bool IsHeroPaused() => hero.IsPaused();
+        public void ResetLockStates() => hero.SetLockStates(HeroLockStates.None);
         public void AddLifeblood()
         {
             bool wasInLifebloodState = hero.IsInLifebloodState;
@@ -98,6 +99,8 @@ internal static class Extensions {
         public void TakeMana(int amount) => hero.TakeMP(amount);
         public void AddMana(int amount, bool heroEffect) => hero.AddMPCharge(amount);
         public bool IsHeroPaused() => GameManager.instance.isPaused;
+        // TODO(port): check if we need to do something here
+        public void ResetLockStates() { }
         public void AddLifeblood() => EventRegister.SendEvent("ADD BLUE HEALTH");
         public void DamageSelf(int amount) => hero.TakeDamage(hero.gameObject, hero.cState.facingRight ? CollisionSide.right : CollisionSide.left, amount, 1);
         public IEnumerator Die(bool nonLethal, bool frostDeath) => hero.Die();
@@ -133,6 +136,16 @@ internal static class Extensions {
         }
 
         public GameState GameState => gameManager.gameState;
+    }
+
+    extension(InvulnerablePulse pulse)
+    {
+        public void StopInvulnerablePulse() => pulse.stopInvulnerablePulse();
+    }
+
+    extension(CameraController camera)
+    {
+        public void PositionToHeroInstant(bool forceDirect) => camera.PositionToHero(forceDirect);
     }
 
     extension(GameCameras cameras)
