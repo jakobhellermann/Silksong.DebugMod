@@ -165,11 +165,13 @@ public partial class DebugMod : ModLoaderBase
 
         KeyBindLock = false;
 
+#if BEPINEX
         bool isHotReload = GameManager._instance != null;
         if (isHotReload)
         {
             OnFinishedLoadingMods();
         }
+#endif
 
         Log("Initialized");
     }
