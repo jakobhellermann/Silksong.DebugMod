@@ -232,18 +232,6 @@ namespace System.Linq {
     }
 }
 
-namespace System.Runtime.InteropServices {
-    // https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.osplatform
-    internal readonly struct OSPlatform(UnityEngine.RuntimePlatform player) {
-        public static OSPlatform Linux => new(UnityEngine.RuntimePlatform.LinuxPlayer);
-        internal UnityEngine.RuntimePlatform Player => player;
-    }
-
-    // https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.runtimeinformation
-    internal static class RuntimeInformation {
-        public static bool IsOSPlatform(OSPlatform osPlatform) => UnityEngine.Application.platform == osPlatform.Player;
-    }
-}
 #endif
 
 #if !NET5_0_OR_GREATER
@@ -353,6 +341,38 @@ namespace UnityEngine.UI {
                 inputField.onValueChanged = new InputField.OnChangeEvent();
                 inputField.text = text;
                 inputField.onValueChanged = onValueChanged;
+            }
+        }
+    }
+}
+#endif
+
+#if HK1221_OR_OLDER
+namespace UnityEngine {
+    // https://docs.unity3d.com/ScriptReference/RigidbodyType2D.html
+    public enum RigidbodyType2D {
+        Dynamic,
+        Kinematic,
+    }
+
+    internal static class Rigidbody2DPolyfill {
+        extension(Rigidbody2D rigidbody) {
+            // https://docs.unity3d.com/ScriptReference/Rigidbody2D-bodyType.html
+            public RigidbodyType2D bodyType {
+                get => rigidbody.isKinematic ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic;
+                set => rigidbody.isKinematic = value == RigidbodyType2D.Kinematic;
+            }
+        }
+    }
+}
+
+namespace UnityEngine.SceneManagement {
+    internal static class SceneManagerPolyfill {
+        extension(SceneManager) {
+            // https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.UnloadSceneAsync.html
+            public static AsyncOperation? UnloadSceneAsync(Scene scene) {
+                SceneManager.UnloadScene(scene);
+                return null;
             }
         }
     }

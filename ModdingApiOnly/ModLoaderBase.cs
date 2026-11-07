@@ -29,6 +29,7 @@ public abstract class ModLoaderBase : Mod
             return location;
         }
 
+#if !HK1221_OR_OLDER
         // Hot reloaded assemblies are loaded from memory
         FieldInfo field = typeof(ModLoader).GetField("ModInstancesByAssembly", BindingFlags.NonPublic | BindingFlags.Static)
             ?? throw new MissingFieldException(nameof(ModLoader), "ModInstancesByAssembly");
@@ -41,6 +42,7 @@ public abstract class ModLoaderBase : Mod
             }
         }
 
+#endif
         throw new InvalidOperationException($"Could not find the assembly location of {GetType().Name}");
     }
 

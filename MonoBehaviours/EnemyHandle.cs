@@ -26,7 +26,9 @@ public class EnemyHandle : MonoBehaviour
 
     private static List<EnemyHandle> bosses = [];
 
+#if !HK1221_OR_OLDER
     private HealthManager hm;
+#endif
     private tk2dSprite? sprite;
     private BoxCollider2D collider;
     private CanvasPanel? hpBar;
@@ -43,18 +45,29 @@ public class EnemyHandle : MonoBehaviour
 
     private PlayMakerFSM? staggerFsm;
 
+#if HK1221_OR_OLDER
+    // TODO(port/1.2.2.1): enemy HP lives in the health_manager FSM, no handles are created
+    public int HP
+    {
+        get => throw new NotImplementedException();
+        set => throw new NotImplementedException();
+    }
+#else
     public int HP
     {
         get => hm.hp;
         set => hm.hp = value;
     }
+#endif
 
     public int MaxHP => maxHP;
     public string Name => gameObject.name;
 
     public void Awake()
     {
+#if !HK1221_OR_OLDER
         hm = GetComponent<HealthManager>();
+#endif
         sprite = GetComponent<tk2dSprite>();
         collider = GetComponent<BoxCollider2D>();
 
@@ -90,19 +103,19 @@ public class EnemyHandle : MonoBehaviour
             return;
         }
 
-        if (hm.hp < 0 || hm.hp > 9999)
+        if (HP < 0 || HP > 9999)
         {
             maxHPSet = false;
-            if (hm.hp >= 0)
+            if (HP >= 0)
             {
-                maxHP = hm.hp;
+                maxHP = HP;
             }
         }
         // The third check is to differentiate FSMs that temporarily set
         // the boss HP to 9999 from the debug mod "infinite health" button
-        else if (!maxHPSet || maxHP < hm.hp || hm.hp < 5000 && maxHP >= 9000)
+        else if (!maxHPSet || maxHP < HP || HP < 5000 && maxHP >= 9000)
         {
-            maxHP = hm.hp;
+            maxHP = HP;
             maxHPSet = true;
         }
 
@@ -302,6 +315,7 @@ public class EnemyHandle : MonoBehaviour
         return staggerFsm.ActiveStateName == "Stop" ? "NoStun" : "";
     }
 
+#if !HK1221_OR_OLDER
     [HarmonyPatch(typeof(HealthManager), nameof(HealthManager.Start))]
     [HarmonyPostfix]
     private static void HealthManager_Start(HealthManager __instance)
@@ -311,6 +325,7 @@ public class EnemyHandle : MonoBehaviour
             __instance.gameObject.AddComponent<EnemyHandle>();
         }
     }
+#endif
 
     private static readonly (string displayName, string sceneName, string goName)[] bossPatterns =
     [

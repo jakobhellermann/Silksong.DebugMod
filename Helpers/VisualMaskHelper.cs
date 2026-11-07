@@ -137,7 +137,9 @@ public static partial class VisualMaskHelper
 #if !HK1578_OR_OLDER
             if (go.GetComponent<MaskerBlackout>()) return true;
 #endif
+#if !HK1221_OR_OLDER
             if (go.GetComponent<BlurPlane>()) return true;
+#endif
             if (go.name.Contains("black_fader")) return true;
             if (go.name.Contains("haze")) return true;
             if (go.name.StartsWith("msk_")) return true;

@@ -68,7 +68,7 @@ public static class CommandPaletteCommands
         if (UIManager.instance.uiState.ToString() == "PAUSED")
             yield return GameManager.instance.PauseGameToggle(false);
         
-        GameManager.instance.BeginSceneTransition(new GameManager.SceneLoadInfo
+        GameManager.instance.BeginSceneTransition(new SceneLoadInfo
         {
             SceneName = scene,
             EntryGateName = gate,

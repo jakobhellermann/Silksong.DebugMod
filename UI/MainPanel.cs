@@ -402,7 +402,11 @@ public partial class MainPanel : CanvasPanel
 
     private static void OpenFolder(string path)
     {
+#if NET35
+        if (Application.platform == RuntimePlatform.LinuxPlayer)
+#else
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+#endif
         {
             ProcessStartInfo info = new("xdg-open");
 #if HK1578_OR_OLDER

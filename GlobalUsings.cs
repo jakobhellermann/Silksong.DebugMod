@@ -10,6 +10,13 @@ global using LanguageCode = Language.LanguageCode;
 #if BEPINEX
 global using ModLoaderBase = BepInEx.BaseUnityPlugin;
 #endif
-#if MODDINGAPI
+#if MODDINGAPI && !HK1221_OR_OLDER
 global using ModHooks = Modding.ModHooks;
+#endif
+#if !HK1221_OR_OLDER
+global using SceneLoadInfo = GameManager.SceneLoadInfo;
+#endif
+#if HK1221_OR_OLDER
+global using HollowKnightInputModule = InControl.InControlInputModule;
+global using Profiler = DebugMod.Helpers.Profiler;
 #endif

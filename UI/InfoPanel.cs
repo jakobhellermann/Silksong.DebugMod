@@ -74,9 +74,11 @@ public partial class InfoPanel : CanvasPanel
         y += sectionBreak;
 
         AppendInfo("INFOPANEL_NEEDLEBASE", () => $"{PlayerData.instance.nailDamage} (n{PlayerData.instance.nailUpgrades})");
+#if !HK1221_OR_OLDER
         AppendInfo("INFOPANEL_LASTDAMAGEAMOUNT", () => DebugMod.lastHit != null ?
             $"{DebugMod.lastDamage} ({DebugMod.lastHit?.DamageDealt} x {DebugMod.lastHit?.Multiplier})" : Localization.Get("INFOPANEL_NONE"));
         AppendInfo("INFOPANEL_LASTDAMAGETYPE", () => DebugMod.lastHit?.AttackType.ToString() ?? Localization.Get("INFOPANEL_NONE"));
+#endif
 #if SILKSONG
         AppendInfo("INFOPANEL_LASTDAMAGESCALING", GetScaling);
 #endif

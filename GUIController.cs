@@ -10,7 +10,6 @@ using DebugMod.UI.CommandPalette;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using TeamCherry.Localization;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,7 +25,7 @@ public partial class GUIController : MonoBehaviour
     private static readonly HitboxViewer hitboxes = new();
     private static Binding? keyWarning;
     private static KeyCode pendingModifierKey;
-    private Size resolution;
+    private (int width, int height) resolution;
     internal LanguageCode language;
 #if SILKSONG
     private bool benchwarpShifted;
@@ -125,7 +124,7 @@ public partial class GUIController : MonoBehaviour
         try
         {
             CommandPaletteController.Unload();
-            resolution = new Size(Screen.width, Screen.height);
+            resolution = (Screen.width, Screen.height);
             language = GetLanguage();
 #if SILKSONG
             benchwarpShifted = false;
@@ -153,7 +152,12 @@ public partial class GUIController : MonoBehaviour
             rt.pivot = Vector2.zero;
             rt.sizeDelta = new Vector2(Screen.width, Screen.height);
 
+#if HK1221_OR_OLDER
+            // DontDestroyOnLoad doesn't survive the additive scene unloads of 1.2.2.1
+            canvas.transform.SetParent(transform, false);
+#else
             DontDestroyOnLoad(canvas);
+#endif
 
             CommandPaletteController.Build();
 
@@ -198,9 +202,9 @@ public partial class GUIController : MonoBehaviour
 
         Profiler.NewFrame();
 
-        if (!resolution.IsEmpty && (resolution.Width != Screen.width || resolution.Height != Screen.height))
+        if (resolution != default && resolution != (Screen.width, Screen.height))
         {
-            resolution = new Size(Screen.width, Screen.height);
+            resolution = (Screen.width, Screen.height);
             lastRescale = Time.realtimeSinceStartup;
         }
 

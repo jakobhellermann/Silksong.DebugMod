@@ -151,7 +151,14 @@ public static class TimeScale
             hook.Dispose();
     }
 
-#if HK1432_OR_OLDER
+#if HK1221_OR_OLDER
+    // Only SetTimeScale counts with unscaledDeltaTime, FreezeMoment waits for scaled seconds
+    private static readonly MethodInfo[] FreezeCoroutines = (
+        from type in typeof(GameManager).GetNestedTypes(BindingFlags.NonPublic)
+        where type.Name.StartsWith("<SetTimeScale>")
+        select type.GetMethod("MoveNext", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+    ).ToArray();
+#elif HK1432_OR_OLDER
     // TODO(port/1.4.3.2): check that ScaleFreeze finds its IL pattern in these
     private static readonly MethodInfo[] FreezeCoroutines = (
         from type in typeof(GameManager).GetNestedTypes(BindingFlags.NonPublic)

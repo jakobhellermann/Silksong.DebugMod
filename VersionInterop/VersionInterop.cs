@@ -219,4 +219,44 @@ internal static class Extensions {
         public static T GetConstantValue<T>(string constantName) => (T)typeof(Constants).GetField(constantName).GetValue(null);
     }
 #endif
+
+#if HK1221_OR_OLDER
+    extension(GameManager)
+    {
+        public static GameManager UnsafeInstance => GameManager._instance;
+    }
+
+    // HeroController.FinishedEnteringScene ends the scene transition
+    extension(GameManager gm)
+    {
+        public bool isLoading => HeroController.instance.transitionState != HeroTransitionState.WAITING_TO_TRANSITION;
+        public bool IsInSceneTransition => HeroController.instance.transitionState != HeroTransitionState.WAITING_TO_TRANSITION;
+    }
+
+    extension(GameManager gm)
+    {
+        public void BeginSceneTransition(SceneLoadInfo info) => gm.ChangeToScene(info.SceneName, info.EntryGateName, 0f);
+    }
+
+    extension(InputHandler)
+    {
+        public static InputHandler Instance => GameManager.instance.inputHandler;
+    }
+
+    extension(FSMUtility)
+    {
+        public static void SendEventToGameObject(UnityEngine.GameObject go, string eventName, bool isRecursive)
+        {
+            foreach (PlayMakerFSM fsm in isRecursive ? go.GetComponentsInChildren<PlayMakerFSM>() : go.GetComponents<PlayMakerFSM>())
+            {
+                fsm.SendEvent(eventName);
+            }
+        }
+    }
+
+    extension(Modding.ModHooks)
+    {
+        public static Modding.IMod GetMod(string name) => Modding.ModLoader.LoadedMods.Find(mod => mod.GetName() == name);
+    }
+#endif
 }

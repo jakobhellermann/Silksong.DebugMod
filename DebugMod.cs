@@ -5,7 +5,6 @@ using DebugMod.UI;
 using DebugMod.UI.CommandPalette;
 using HarmonyLib;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,7 +26,9 @@ public partial class DebugMod : ModLoaderBase
     private static GameObject _refKnight;
     private static CameraController _refCamera;
     private static Collider2D _refHeroCollider;
+#if !HK1221_OR_OLDER
     private static LightBlurredBackground _lbb;
+#endif
 
     internal static GameManager GM => _gm != null ? _gm : (_gm = GameManager._instance);
     internal static InputHandler IH => _ih != null ? _ih : (_ih = GM.inputHandler);
@@ -35,7 +36,9 @@ public partial class DebugMod : ModLoaderBase
     internal static GameObject RefKnight => _refKnight != null ? _refKnight : (_refKnight = HC.gameObject);
     internal static CameraController RefCamera => _refCamera != null ? _refCamera : (_refCamera = GM.cameraCtrl);
     internal static Collider2D RefHeroCollider => _refHeroCollider != null ? _refHeroCollider : (_refHeroCollider = RefKnight.GetComponent<Collider2D>());
+#if !HK1221_OR_OLDER
     internal static LightBlurredBackground LBB => _lbb != null ? _lbb : (_lbb = GameObject.FindFirstObjectByType<LightBlurredBackground>());
+#endif
 
     //used to stop hazard coros
     internal static IEnumerator CurrentHazardCoro;
@@ -61,7 +64,9 @@ public partial class DebugMod : ModLoaderBase
     private static float _unloadTime;
     private static bool _loadingChar;
 
+#if !HK1221_OR_OLDER
     internal static HitInstance? lastHit;
+#endif
     internal static int lastDamage;
 
     public static bool stateOnDeath;
@@ -238,7 +243,7 @@ public partial class DebugMod : ModLoaderBase
 
             if (File.Exists(path))
             {
-                settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(path));
+                settings = JsonUtil.FromJson<Settings>(File.ReadAllText(path));
                 settings ??= new Settings();
                 Log("Loaded settings");
             }
@@ -266,7 +271,7 @@ public partial class DebugMod : ModLoaderBase
         try
         {
             string path = Path.Combine(ModBaseDirectory, "Settings.json");
-            File.WriteAllText(path, JsonConvert.SerializeObject(settings, Formatting.Indented));
+            File.WriteAllText(path, JsonUtil.ToJson(settings));
         }
         catch (Exception e)
         {
@@ -360,7 +365,9 @@ public partial class DebugMod : ModLoaderBase
         noclip = false;
         extraNailDamage = 0;
 
+#if !HK1221_OR_OLDER
         lastHit = null;
+#endif
         lastDamage = 0;
         ResetCharacterState();
 

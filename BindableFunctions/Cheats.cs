@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace DebugMod;
@@ -8,6 +9,10 @@ public static partial class BindableFunctions
     [BindableMethod(name = "CHEATS_KILLALL", category = "CATEGORY_CHEATS")]
     public static void KillAll()
     {
+#if HK1221_OR_OLDER
+        // TODO(port/1.2.2.1): enemy HP lives in the health_manager FSM
+        throw new NotImplementedException();
+#else
         int ctr = 0;
 
         foreach (HealthManager hm in Object.FindObjectsByType<HealthManager>(FindObjectsSortMode.None))
@@ -19,6 +24,7 @@ public static partial class BindableFunctions
             }
         }
         DebugMod.LogConsole($"Killing {ctr} HealthManagers in scene");
+#endif
     }
 
     [BindableMethod(name = "CHEATS_INFINITEJUMP", category = "CATEGORY_CHEATS")]

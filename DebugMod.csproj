@@ -10,7 +10,7 @@
 	<Import Project="TargetFrameworks.props"/>
 
 	<PropertyGroup>
-		<TargetFrameworks>silksong;hk1512620-bepinex;hk1512620;hk1578;hk1432;hk1315</TargetFrameworks>
+		<TargetFrameworks>silksong;hk1512620-bepinex;hk1512620;hk1578;hk1432;hk1315;hk1221</TargetFrameworks>
 		<LangVersion>latest</LangVersion>
 		<EnableNETAnalyzers>True</EnableNETAnalyzers>
 		<AnalysisMode>recommended</AnalysisMode>
@@ -60,9 +60,17 @@
 
 	<!-- must match the MonoMod version of the Modding API -->
 	<ItemGroup Condition="'$(ModLoader)' == 'ModdingApi'">
-		<PackageReference Include="HarmonyX" Version="2.16.1" Condition="'$(GameTarget)' != 'hk1578' And '$(GameTarget)' != 'hk1432' And '$(GameTarget)' != 'hk1315'"/>
+		<PackageReference Include="HarmonyX" Version="2.16.1" Condition="'$(GameTarget)' != 'hk1578' And '$(GameTarget)' != 'hk1432' And '$(GameTarget)' != 'hk1315' And '$(GameTarget)' != 'hk1221'"/>
 		<!-- 1.3.1.5, 1.4.3.2 and 1.5.78 ship MonoMod.RuntimeDetour 21.4.29.1, the last HarmonyX built against 21.4 is 2.5.0 -->
 		<PackageReference Include="HarmonyX" Version="2.5.0" Condition="'$(GameTarget)' == 'hk1578' Or '$(GameTarget)' == 'hk1432' Or '$(GameTarget)' == 'hk1315'"/>
+		<!-- 1.2.2.1 ships no MonoMod, so HarmonyX and its dependencies are repacked -->
+		<PackageReference Include="HarmonyX" Version="2.9.0" Condition="'$(GameTarget)' == 'hk1221'"/>
+	</ItemGroup>
+
+	<!-- 1.2.2.1 comes with no MonoMod or Newtonsoft.Json, see ILRepack.targets -->
+	<ItemGroup Condition="'$(RepackDependencies)' == 'true'">
+		<PackageReference Include="LitJson" Version="0.19.0"/>
+		<PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.46" PrivateAssets="all"/>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' And '$(TargetFrameworkVersion)' != 'v3.5'">
@@ -112,12 +120,14 @@
 			<Binaries Include="$(TargetPath)" LocalDir="/" PackDir="/plugins"/>
 			<Binaries Include="$(TargetDir)/$(TargetName).pdb" LocalDir="/" PackDir="/plugins"/>
 			<Binaries Include="$(ProjectDir)/languages/*.json" LocalDir="languages" PackDir="plugins/languages"/>
-			<Binaries Include="@(ReferencePath)" Condition="'$(ModLoader)' == 'ModdingApi' And '%(Filename)' == '0Harmony'" LocalDir="/" PackDir="/plugins"/>
+			<Binaries Include="@(ReferencePath)" Condition="'$(ModLoader)' == 'ModdingApi' And '$(RepackDependencies)' != 'true' And '%(Filename)' == '0Harmony'" LocalDir="/" PackDir="/plugins"/>
 		</ItemGroup>
 		<PropertyGroup>
 			<ThunderstoreDir>$(ProjectDir)/thunderstore</ThunderstoreDir>
+			<ModInstallDir>$(SilksongPluginsFolder)/hk_speedrunning-$(AssemblyTitle)</ModInstallDir>
+			<ModInstallDir Condition="'$(ModsLayout)' == 'flat'">$(SilksongPluginsFolder)</ModInstallDir>
 		</PropertyGroup>
-		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(SilksongPluginsFolder)/hk_speedrunning-$(AssemblyTitle)/%(Binaries.LocalDir)" Condition="'$(SilksongPluginsFolder)' != '' And Exists('$(SilksongPluginsFolder)')"/>
+		<Copy SourceFiles="@(Binaries)" DestinationFolder="$(ModInstallDir)/%(Binaries.LocalDir)" Condition="'$(SilksongPluginsFolder)' != '' And Exists('$(SilksongPluginsFolder)')"/>
 		<RemoveDir Condition="'$(SilksongVersion)' != ''" Directories="$(ThunderstoreDir)/temp;$(ThunderstoreDir)/dist"/>
 		<MakeDir Condition="'$(SilksongVersion)' != ''" Directories="$(ThunderstoreDir)/temp"/>
 		<Copy Condition="'$(SilksongVersion)' != ''" SourceFiles="@(Binaries)" DestinationFolder="$(ThunderstoreDir)/temp/%(Binaries.PackDir)"/>

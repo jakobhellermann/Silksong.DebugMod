@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -38,7 +37,7 @@ internal static class Localization
         try
         {
             string path = Path.Combine(Path.GetDirectoryName(location), "languages", "en.json");
-            Dictionary<string, object> dictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(path));
+            Dictionary<string, object> dictionary = JsonUtil.FromJson<Dictionary<string, object>>(File.ReadAllText(path));
 
             fallbackSheet = [];
             foreach (KeyValuePair<string, object> pair in dictionary)

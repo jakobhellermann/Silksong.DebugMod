@@ -1,0 +1,12 @@
+<Project>
+    <Target Name="Repack" AfterTargets="PostBuildEvent" BeforeTargets="CopyAndPackageMod" Condition="'$(RepackDependencies)' == 'true'">
+        <ItemGroup>
+            <RepackInput Include="$(TargetPath)"/>
+            <RepackInput Include="@(ReferenceCopyLocalPaths)" Condition="'%(Extension)' == '.dll'"/>
+            <RepackSearchDir Include="@(ReferencePath->'%(RootDir)%(Directory)')"/>
+        </ItemGroup>
+        <ILRepack InputAssemblies="@(RepackInput)" OutputFile="$(TargetPath)" LibraryPath="@(RepackSearchDir->Distinct())"
+                  TargetKind="Dll" Internalize="true" Parallel="false" DebugInfo="$(DebugSymbols)"/>
+        <Delete Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')"/>
+    </Target>
+</Project>

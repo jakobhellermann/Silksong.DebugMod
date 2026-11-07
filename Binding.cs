@@ -1,11 +1,15 @@
+#if !HK1221_OR_OLDER
 using Newtonsoft.Json;
+#endif
 using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace DebugMod;
 
+#if !HK1221_OR_OLDER
 [JsonConverter(typeof(BindingJsonConverter))]
+#endif
 public readonly struct Binding : IEquatable<Binding>
 {
     public Modifier Modifiers { get; }
@@ -83,6 +87,13 @@ public readonly struct Binding : IEquatable<Binding>
         return true;
     }
     
+#if HK1221_OR_OLDER
+    internal static void RegisterLitJson()
+    {
+        LitJson.JsonMapper.RegisterExporter<Binding>((value, writer) => writer.Write(value.ToString()));
+        LitJson.JsonMapper.RegisterImporter<string, Binding>(Parse);
+    }
+#else
     private sealed class BindingJsonConverter : JsonConverter<Binding>
     {
         public override void WriteJson(JsonWriter writer, Binding value, JsonSerializer serializer)
@@ -100,6 +111,7 @@ public readonly struct Binding : IEquatable<Binding>
             };
         }
     }
+#endif
     
     #endregion
 }

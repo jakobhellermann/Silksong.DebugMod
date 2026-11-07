@@ -20,8 +20,10 @@ namespace DebugMod.SaveStates;
 [HarmonyPatch]
 public partial class SaveState
 {
+#if !HK1221_OR_OLDER
     // Some mods (ItemChanger) check type to detect vanilla scene loads.
     private class DebugModSaveStateSceneLoadInfo : GameManager.SceneLoadInfo { }
+#endif
 
     //used to stop double loads
     public static SaveState loadingSavestate { get; private set; }
@@ -383,6 +385,9 @@ public partial class SaveState
 
         sceneData[0].LoadHook();
 
+#if HK1221_OR_OLDER
+        GameManager.instance.ChangeToScene(data.saveScene, "dreamGate", 0f);
+#else
         GameManager.instance.BeginSceneTransition
         (
             new DebugModSaveStateSceneLoadInfo
@@ -397,6 +402,7 @@ public partial class SaveState
                 AlwaysUnloadUnusedAssets = loadSafely
             }
         );
+#endif
 
         yield return new WaitUntil(() => USceneManager.GetActiveScene().name == data.saveScene);
 
@@ -461,7 +467,9 @@ public partial class SaveState
         {
             GameManager.instance.cameraCtrl.PositionToHeroInstant(false);
             GameManager.instance.cameraCtrl.isGameplayScene = true;
+#if !HK1221_OR_OLDER
             GameManager.instance.UpdateUIStateFromGameState();
+#endif
         }
         catch (NullReferenceException) { } // This can fail for mysterious reasons if loading out of a cutscene, but it isn't crucial
 
@@ -513,7 +521,9 @@ public partial class SaveState
                 HeroController.instance.UnPause();
             }
 
+#if !HK1221_OR_OLDER
             MenuButtonList.ClearAllLastSelected();
+#endif
             TimeManager.TimeScale = 1f;
         }
 
@@ -571,6 +581,8 @@ public partial class SaveState
     #endregion
 
     #region patches
+#if !HK1221_OR_OLDER
+    // dreamGate entries place the hero via EnterSceneNoGate up to 1.2.2.1
     // Bring back dream gate transitions >:(
     [HarmonyPatch(typeof(GameManager), nameof(GameManager.FindEntryPoint))]
     [HarmonyPrefix]
@@ -584,6 +596,7 @@ public partial class SaveState
 
         return true;
     }
+#endif
 
     // Prevent objects in the previous scene overwriting scene data when unloading
     [HarmonyPatch(typeof(GameManager), nameof(GameManager.SaveLevelState))]

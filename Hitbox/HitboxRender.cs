@@ -107,7 +107,11 @@ public partial class HitboxRender : MonoBehaviour
         {
             return HitboxType.Knight;
         }
+#if HK1221_OR_OLDER
+        else if (go.LocateMyFSM("damages_enemy") || go.name == "Damager" && go.LocateMyFSM("Damage"))
+#else
         else if (go.GetComponent<DamageEnemies>() || go.LocateMyFSM("damages_enemy") || go.name == "Damager" && go.LocateMyFSM("Damage"))
+#endif
         {
             return HitboxType.Attack;
         }
@@ -133,7 +137,9 @@ public partial class HitboxRender : MonoBehaviour
         else if (HitboxViewer.State == 2)
         {
             if (CategorizeGameSpecificDetailed(collider2D, out HitboxType detailed)) { return detailed; }
+#if !HK1221_OR_OLDER
             else if (go.GetComponent<AlertRange>()) { return HitboxType.AlertRegion; }
+#endif
             else return HitboxType.Other;
         }
 
@@ -296,6 +302,9 @@ public partial class HitboxRender : MonoBehaviour
 [HarmonyPatch]
 public static class HitboxPatches
 {
+#if HK1221_OR_OLDER
+    // TODO(port/1.2.2.1): DamageHero has no OnEnable to update hitboxes from
+#else
     [HarmonyPatch(typeof(DamageHero), nameof(DamageHero.OnEnable))]
     [HarmonyPrefix]
     public static void DamageHeroEnabled(DamageHero __instance)
@@ -303,6 +312,7 @@ public static class HitboxPatches
         if (!HitboxRender.Instance) return;
         HitboxRender.Instance.UpdateHitbox(__instance.gameObject);
     }
+#endif
 
     // tk2d adds colliders at runtime once a sprite frame has collision data
     [HarmonyPatch(typeof(tk2dBaseSprite), nameof(tk2dBaseSprite.UpdateCollider))]

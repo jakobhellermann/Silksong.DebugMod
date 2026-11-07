@@ -10,9 +10,13 @@ public partial class SaveState
 {
     private partial IEnumerator PrepareSceneLoad(bool abortDeath)
     {
+#if HK1221_OR_OLDER
+        yield break;
+#else
         // TODO(port): unverified if necessary
         yield return ScenePreloader.FinishPendingOperations();
         ScenePreloader.Cleanup();
+#endif
     }
 
     private partial IEnumerator LoadDummyScene()

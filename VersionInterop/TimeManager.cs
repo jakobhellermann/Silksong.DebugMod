@@ -8,6 +8,20 @@ internal static class TimeManager
 {
     private static readonly List<TimeControlInstance> instances = [];
 
+#if HK1221_OR_OLDER
+    // TODO(port/1.2.2.1): the game writes Time.timeScale directly
+    private static float baseTimeScale = 1f;
+
+    public static float TimeScale
+    {
+        get => baseTimeScale;
+        set
+        {
+            baseTimeScale = value;
+            UpdateTimeScale();
+        }
+    }
+#else
     public static float TimeScale
     {
         get => TimeController.GenericTimeScale;
@@ -17,6 +31,7 @@ internal static class TimeManager
             UpdateTimeScale();
         }
     }
+#endif
 
     public sealed class TimeControlInstance
     {
@@ -53,8 +68,12 @@ internal static class TimeManager
 
     private static void UpdateTimeScale()
     {
+#if HK1221_OR_OLDER
+        float scale = baseTimeScale;
+#else
         float scale = TimeController.SlowMotionTimeScale * TimeController.PauseTimeScale
             * TimeController.PlatformBackgroundTimeScale * TimeController.GenericTimeScale;
+#endif
         foreach (TimeControlInstance instance in instances)
         {
             scale *= instance.timeScale;

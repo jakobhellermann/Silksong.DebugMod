@@ -98,6 +98,19 @@ public static class SceneWatcher
             this.sceneObject = scene;
         }
 
+#if HK1221_OR_OLDER
+        public void LoadHook()
+        {
+            activeInfo = this;
+        }
+
+        [HarmonyPatch(typeof(HeroController), nameof(HeroController.FinishedEnteringScene))]
+        [HarmonyPostfix]
+        private static void FinishedEnteringScene()
+        {
+            activeInfo = null;
+        }
+#else
         public void LoadHook()
         {
             activeInfo = this;
@@ -109,6 +122,7 @@ public static class SceneWatcher
             GameManager.instance.OnFinishedSceneTransition -= FinishedSceneTransitionHook;
             activeInfo = null;
         }
+#endif
 
         [HarmonyPatch(typeof(GameManager), nameof(GameManager.UpdateSceneName))]
         [HarmonyPrefix]
