@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace DebugMod.UI.CommandPalette;
 
@@ -30,26 +31,36 @@ public static class CommandPaletteCommands
     private static readonly Lazy<Dictionary<string, List<string>>> scenesByArea =
         new(() => JsonUtil.Deserialize<Dictionary<string, List<string>>>("DebugMod.Resources.scenes_by_area.jsonc"));
 
+#if HK1578_OR_OLDER
+    private static readonly Lazy<Dictionary<string, List<string>>> transitionGates =
+        new(() => JsonUtil.Deserialize<Dictionary<string, List<string>>>("DebugMod.Resources.transition_gates.jsonc"));
+#endif
+
     private static IEnumerable<CommandPaletteItem> TeleportPoints()
     {
 #if HK1578_OR_OLDER
-        // TODO(port/1.5.78): no SceneTeleportMap
-        yield break;
+        Dictionary<string, List<string>> gatesByScene = transitionGates.Value;
 #else
         Dictionary<string, SceneTeleportMap.SceneInfo> teleportMap = SceneTeleportMap.GetTeleportMap();
         if (teleportMap == null) yield break;
+        Dictionary<string, List<string>> gatesByScene = teleportMap.ToDictionary(kv => kv.Key, kv => kv.Value.TransitionGates);
+#endif
 
         foreach ((string area, List<string> scenes) in scenesByArea.Value)
         {
-            yield return new CommandPaletteItem.SubmenuItem(area, () => scenes.Select(scene =>
+#if HK1578_OR_OLDER
+            List<string> existingScenes = scenes.Where(Application.CanStreamedLevelBeLoaded).ToList();
+#else
+            List<string> existingScenes = scenes;
+#endif
+            yield return new CommandPaletteItem.SubmenuItem(area, () => existingScenes.Select<string, CommandPaletteItem>(scene =>
                 new CommandPaletteItem.SubmenuItem(
                     scene,
-                    () => teleportMap[scene].TransitionGates.OrderBy(g => g).Select(gate =>
+                    () => gatesByScene[scene].OrderBy(g => g).Select<string, CommandPaletteItem>(gate =>
                         new CommandPaletteItem.ActionItem(gate, () => GameManager.instance.StartCoroutine(Teleport(scene, gate)))),
                     searchChildren: false
                 )));
         }
-#endif
     }
 
     private static IEnumerator Teleport(string scene, string gate)

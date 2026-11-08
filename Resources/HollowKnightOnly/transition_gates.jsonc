@@ -1,0 +1,1998 @@
+// SceneTeleportMap of 1.5.12620
+{
+  "Abyss_01": [
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "right2"
+  ],
+  "Abyss_02": [
+    "bot1",
+    "right1"
+  ],
+  "Abyss_03": [
+    "bot1",
+    "bot2",
+    "door_tram",
+    "door_tram_arrive",
+    "top1"
+  ],
+  "Abyss_03_b": [
+    "door_tram",
+    "door_tram_arrive",
+    "left1"
+  ],
+  "Abyss_03_c": [
+    "door_tram",
+    "door_tram_arrive",
+    "right1",
+    "top1"
+  ],
+  "Abyss_04": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Abyss_05": [
+    "door_dreamReturn",
+    "door_dreamReturn_reality",
+    "left1",
+    "right1"
+  ],
+  "Abyss_06_Core": [
+    "bot1",
+    "door_dreamReturn",
+    "left1",
+    "left1 extra",
+    "left3",
+    "right2",
+    "top1"
+  ],
+  "Abyss_08": [
+    "right1"
+  ],
+  "Abyss_09": [
+    "left1",
+    "right1",
+    "right2",
+    "right3"
+  ],
+  "Abyss_10": [
+    "left1",
+    "left2"
+  ],
+  "Abyss_12": [
+    "right1"
+  ],
+  "Abyss_15": [
+    "door_dreamReturn",
+    "top1"
+  ],
+  "Abyss_16": [
+    "left1",
+    "right1"
+  ],
+  "Abyss_17": [
+    "top1"
+  ],
+  "Abyss_18": [
+    "left1",
+    "right1"
+  ],
+  "Abyss_19": [
+    "bot1",
+    "bot2",
+    "door_dreamReturn",
+    "left1",
+    "right1"
+  ],
+  "Abyss_20": [
+    "top1",
+    "top2"
+  ],
+  "Abyss_21": [
+    "right1"
+  ],
+  "Abyss_22": [
+    "door_stagExit",
+    "left1"
+  ],
+  "Abyss_Lighthouse_room": [
+    "left1"
+  ],
+  "Cliffs_01": [
+    "right1",
+    "right2",
+    "right3",
+    "right4"
+  ],
+  "Cliffs_02": [
+    "bot1",
+    "bot2",
+    "door1",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Cliffs_03": [
+    "door_stagExit",
+    "right1"
+  ],
+  "Cliffs_04": [
+    "left1",
+    "right1"
+  ],
+  "Cliffs_05": [
+    "left1"
+  ],
+  "Cliffs_06": [
+    "left1"
+  ],
+  "Crossroads_01": [
+    "door1",
+    "left1",
+    "right1",
+    "top1",
+    "top2"
+  ],
+  "Crossroads_02": [
+    "door1",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_03": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Crossroads_04": [
+    "door1",
+    "door_Mender_House",
+    "door_charmshop",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Crossroads_05": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_06": [
+    "door1",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_07": [
+    "bot1",
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "right2"
+  ],
+  "Crossroads_08": [
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Crossroads_09": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_10": [
+    "door_dreamReturn",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_11_alt": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_12": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_13": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_14": [
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Crossroads_15": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_16": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_18": [
+    "bot1",
+    "right1",
+    "right2"
+  ],
+  "Crossroads_19": [
+    "left1",
+    "left2",
+    "right1",
+    "top1"
+  ],
+  "Crossroads_21": [
+    "left1",
+    "right1",
+    "top1",
+    "top2"
+  ],
+  "Crossroads_22": [
+    "bot1"
+  ],
+  "Crossroads_25": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_27": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Crossroads_30": [
+    "left1"
+  ],
+  "Crossroads_31": [
+    "right1"
+  ],
+  "Crossroads_33": [
+    "left1",
+    "left2",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Crossroads_35": [
+    "bot1",
+    "right1"
+  ],
+  "Crossroads_36": [
+    "right1",
+    "right2"
+  ],
+  "Crossroads_37": [
+    "right1"
+  ],
+  "Crossroads_38": [
+    "right1"
+  ],
+  "Crossroads_39": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_40": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_42": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_43": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_45": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_46": [
+    "door_tram",
+    "left1"
+  ],
+  "Crossroads_46b": [
+    "door_tram",
+    "right1"
+  ],
+  "Crossroads_47": [
+    "door_stagExit",
+    "right1"
+  ],
+  "Crossroads_48": [
+    "left1"
+  ],
+  "Crossroads_49": [
+    "elev_entrance",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_49b": [
+    "elev_entrance",
+    "left1",
+    "right1"
+  ],
+  "Crossroads_50": [
+    "left1",
+    "right1"
+  ],
+  "Crossroads_52": [
+    "left1"
+  ],
+  "Crossroads_ShamanTemple": [
+    "left1"
+  ],
+  "Cutscene_Boss_Door": [
+    "door1"
+  ],
+  "Deepnest_01": [
+    "bot1",
+    "bot2",
+    "left1",
+    "right1"
+  ],
+  "Deepnest_01b": [
+    "bot1",
+    "right1",
+    "right2",
+    "top1",
+    "top2"
+  ],
+  "Deepnest_02": [
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Deepnest_03": [
+    "left1",
+    "left2",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_09": [
+    "door_stagExit",
+    "left1"
+  ],
+  "Deepnest_10": [
+    "door1",
+    "door2",
+    "right1",
+    "right2",
+    "right3"
+  ],
+  "Deepnest_14": [
+    "bot1",
+    "bot2",
+    "left1",
+    "left1 (1)",
+    "left1 (2)",
+    "left1 (3)",
+    "right1"
+  ],
+  "Deepnest_16": [
+    "bot1",
+    "left1"
+  ],
+  "Deepnest_17": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_26": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Deepnest_26b": [
+    "right1",
+    "right2"
+  ],
+  "Deepnest_30": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_31": [
+    "right1",
+    "right2"
+  ],
+  "Deepnest_32": [
+    "left1"
+  ],
+  "Deepnest_33": [
+    "bot1",
+    "top1",
+    "top2"
+  ],
+  "Deepnest_34": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_35": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Deepnest_36": [
+    "left1"
+  ],
+  "Deepnest_37": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_38": [
+    "bot1"
+  ],
+  "Deepnest_39": [
+    "door1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_40": [
+    "right1"
+  ],
+  "Deepnest_41": [
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Deepnest_42": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Deepnest_43": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Deepnest_44": [
+    "top1"
+  ],
+  "Deepnest_45_v02": [
+    "left1"
+  ],
+  "Deepnest_East_01": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_02": [
+    "bot1",
+    "bot2",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_03": [
+    "left1",
+    "left2",
+    "right1",
+    "right2",
+    "top1",
+    "top2"
+  ],
+  "Deepnest_East_04": [
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Deepnest_East_06": [
+    "bot1",
+    "door1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_07": [
+    "bot1",
+    "bot2",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Deepnest_East_08": [
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_09": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Deepnest_East_10": [
+    "left1"
+  ],
+  "Deepnest_East_11": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_12": [
+    "door_cutsceneReturn",
+    "left1",
+    "right1"
+  ],
+  "Deepnest_East_13": [
+    "bot1"
+  ],
+  "Deepnest_East_14": [
+    "door1",
+    "left1",
+    "top2"
+  ],
+  "Deepnest_East_14b": [
+    "right1",
+    "top1"
+  ],
+  "Deepnest_East_15": [
+    "left1"
+  ],
+  "Deepnest_East_16": [
+    "bot1",
+    "left1"
+  ],
+  "Deepnest_East_17": [
+    "left1"
+  ],
+  "Deepnest_East_18": [
+    "bot1",
+    "right2",
+    "top1"
+  ],
+  "Deepnest_East_Hornet": [
+    "left1",
+    "left2"
+  ],
+  "Deepnest_Spider_Town": [
+    "door_dreamReturn",
+    "left1"
+  ],
+  "Dream_01_False_Knight": [
+    "door1"
+  ],
+  "Dream_02_Mage_Lord": [
+    "door1"
+  ],
+  "Dream_03_Infected_Knight": [
+    "door1"
+  ],
+  "Dream_04_White_Defender": [
+    "door1"
+  ],
+  "Dream_Abyss": [
+    "door1"
+  ],
+  "Dream_Backer_Shrine": [
+    "door1",
+    "door2"
+  ],
+  "Dream_Final_Boss": [
+    "door1"
+  ],
+  "Dream_Guardian_Hegemol": [
+    "door1"
+  ],
+  "Dream_Guardian_Lurien": [
+    "door1"
+  ],
+  "Dream_Guardian_Monomon": [
+    "door1"
+  ],
+  "Dream_Mighty_Zote": [
+    "door1"
+  ],
+  "Dream_Nailcollection": [
+    "door_dreamReturn",
+    "door_dreamReturn2",
+    "door_dreamReturn3",
+    "door_dreamReturn4"
+  ],
+  "Dream_Room_Believer_Shrine": [
+    "left1"
+  ],
+  "Fungus1_01": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_01b": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_02": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Fungus1_03": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Fungus1_04": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_05": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Fungus1_06": [
+    "bot1",
+    "left1"
+  ],
+  "Fungus1_07": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus1_08": [
+    "left1"
+  ],
+  "Fungus1_09": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_10": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus1_11": [
+    "bot1",
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Fungus1_12": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_13": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_14": [
+    "left1"
+  ],
+  "Fungus1_15": [
+    "door1",
+    "right1"
+  ],
+  "Fungus1_16_alt": [
+    "door_stagExit",
+    "right1"
+  ],
+  "Fungus1_17": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_19": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Fungus1_20_v02": [
+    "bot1",
+    "bot2",
+    "right1"
+  ],
+  "Fungus1_21": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus1_22": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Fungus1_23": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_24": [
+    "left1"
+  ],
+  "Fungus1_25": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_26": [
+    "door_SlugShrine",
+    "left1",
+    "right1"
+  ],
+  "Fungus1_28": [
+    "left1",
+    "left2"
+  ],
+  "Fungus1_29": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_30": [
+    "left1",
+    "right1",
+    "top1",
+    "top3"
+  ],
+  "Fungus1_31": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Fungus1_32": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Fungus1_34": [
+    "door1",
+    "left1"
+  ],
+  "Fungus1_35": [
+    "left1",
+    "right1"
+  ],
+  "Fungus1_36": [
+    "left1"
+  ],
+  "Fungus1_37": [
+    "left1"
+  ],
+  "Fungus1_Slug": [
+    "right1"
+  ],
+  "Fungus2_01": [
+    "left1",
+    "left2",
+    "left3",
+    "right1"
+  ],
+  "Fungus2_02": [
+    "door_stagExit",
+    "right1"
+  ],
+  "Fungus2_03": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Fungus2_04": [
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Fungus2_05": [
+    "bot1",
+    "right1"
+  ],
+  "Fungus2_06": [
+    "left1",
+    "left2",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Fungus2_07": [
+    "left1",
+    "right1"
+  ],
+  "Fungus2_08": [
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Fungus2_09": [
+    "left1",
+    "right1"
+  ],
+  "Fungus2_10": [
+    "bot1",
+    "right1",
+    "right2"
+  ],
+  "Fungus2_11": [
+    "left1",
+    "left2",
+    "right1",
+    "top1"
+  ],
+  "Fungus2_12": [
+    "bot1",
+    "left1"
+  ],
+  "Fungus2_13": [
+    "left2",
+    "left3",
+    "top1"
+  ],
+  "Fungus2_14": [
+    "bot1",
+    "bot2",
+    "bot3",
+    "right1",
+    "top1"
+  ],
+  "Fungus2_15": [
+    "left1",
+    "right1",
+    "top1",
+    "top2",
+    "top3"
+  ],
+  "Fungus2_17": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Fungus2_18": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Fungus2_19": [
+    "left1",
+    "top1"
+  ],
+  "Fungus2_20": [
+    "left1",
+    "right1"
+  ],
+  "Fungus2_21": [
+    "left1",
+    "right1"
+  ],
+  "Fungus2_23": [
+    "right1",
+    "right2"
+  ],
+  "Fungus2_25": [
+    "right1",
+    "right1 (1)",
+    "top1",
+    "top2"
+  ],
+  "Fungus2_26": [
+    "left1"
+  ],
+  "Fungus2_28": [
+    "left1",
+    "left2"
+  ],
+  "Fungus2_29": [
+    "bot1",
+    "right1"
+  ],
+  "Fungus2_30": [
+    "bot1",
+    "top1"
+  ],
+  "Fungus2_31": [
+    "left1"
+  ],
+  "Fungus2_32": [
+    "left1"
+  ],
+  "Fungus2_33": [
+    "left1",
+    "right1"
+  ],
+  "Fungus2_34": [
+    "right1"
+  ],
+  "Fungus3_01": [
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Fungus3_02": [
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "right2"
+  ],
+  "Fungus3_03": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_04": [
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Fungus3_05": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Fungus3_08": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus3_10": [
+    "bot1",
+    "top1"
+  ],
+  "Fungus3_11": [
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Fungus3_13": [
+    "bot1",
+    "left1",
+    "left2",
+    "left3",
+    "right1"
+  ],
+  "Fungus3_21": [
+    "right1",
+    "top1"
+  ],
+  "Fungus3_22": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Fungus3_23": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_24": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus3_25": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_25b": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_26": [
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "top1"
+  ],
+  "Fungus3_27": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_28": [
+    "right1"
+  ],
+  "Fungus3_30": [
+    "bot1"
+  ],
+  "Fungus3_34": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Fungus3_35": [
+    "right1"
+  ],
+  "Fungus3_39": [
+    "left1",
+    "right1"
+  ],
+  "Fungus3_40": [
+    "door_stagExit",
+    "right1",
+    "top1"
+  ],
+  "Fungus3_44": [
+    "bot1",
+    "door1",
+    "right1"
+  ],
+  "Fungus3_47": [
+    "door1",
+    "left1",
+    "right1"
+  ],
+  "Fungus3_48": [
+    "bot1",
+    "door1",
+    "right1",
+    "right2"
+  ],
+  "Fungus3_49": [
+    "right1"
+  ],
+  "Fungus3_50": [
+    "right1"
+  ],
+  "Fungus3_archive": [
+    "bot1",
+    "left1"
+  ],
+  "Fungus3_archive_02": [
+    "door_dreamReturn",
+    "top1"
+  ],
+  "GG_Atrium": [
+    "Door_Workshop",
+    "door1_blueRoom",
+    "door_dreamEnter",
+    "door_dreamEnter_ReturnGGMode",
+    "door_dreamReturnGG",
+    "top1",
+    "top2"
+  ],
+  "GG_Atrium_Roof": [
+    "bot1",
+    "bot2",
+    "door_Land_of_Storms",
+    "door_Land_of_Storms_return",
+    "door_dreamReturnGG"
+  ],
+  "GG_Blue_Room": [
+    "left1"
+  ],
+  "GG_Broken_Vessel": [
+    "door_dreamEnter"
+  ],
+  "GG_Brooding_Mawlek": [
+    "door_dreamEnter"
+  ],
+  "GG_Brooding_Mawlek_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Collector": [
+    "door_dreamEnter"
+  ],
+  "GG_Collector_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Crystal_Guardian": [
+    "door_dreamEnter"
+  ],
+  "GG_Crystal_Guardian_2": [
+    "door_dreamEnter"
+  ],
+  "GG_Dung_Defender": [
+    "door_dreamEnter"
+  ],
+  "GG_Engine": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "GG_Engine_Prime": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "GG_Engine_Root": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "GG_Failed_Champion": [
+    "door_dreamEnter"
+  ],
+  "GG_False_Knight": [
+    "door_dreamEnter"
+  ],
+  "GG_Flukemarm": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Galien": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Gorb": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Gorb_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Hu": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Markoth": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Markoth_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Marmu": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Marmu_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_No_Eyes": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_No_Eyes_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Xero": [
+    "door_dreamEnter"
+  ],
+  "GG_Ghost_Xero_V": [
+    "door_dreamEnter"
+  ],
+  "GG_God_Tamer": [
+    "door_dreamEnter"
+  ],
+  "GG_Grey_Prince_Zote": [
+    "door_dreamEnter"
+  ],
+  "GG_Grimm": [
+    "door_dreamEnter"
+  ],
+  "GG_Grimm_Nightmare": [
+    "door_dreamEnter"
+  ],
+  "GG_Gruz_Mother": [
+    "door_dreamEnter"
+  ],
+  "GG_Gruz_Mother_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Hive_Knight": [
+    "door_dreamEnter"
+  ],
+  "GG_Hollow_Knight": [
+    "door_dreamEnter"
+  ],
+  "GG_Hornet_1": [
+    "door_dreamEnter"
+  ],
+  "GG_Hornet_2": [
+    "door_dreamEnter"
+  ],
+  "GG_Land_of_Storms": [
+    "door1"
+  ],
+  "GG_Lost_Kin": [
+    "door_dreamEnter"
+  ],
+  "GG_Lurker": [
+    "left1"
+  ],
+  "GG_Mage_Knight": [
+    "door_dreamEnter"
+  ],
+  "GG_Mage_Knight_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Mantis_Lords": [
+    "door_dreamEnter"
+  ],
+  "GG_Mantis_Lords_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Mega_Moss_Charger": [
+    "door_dreamEnter"
+  ],
+  "GG_Mighty_Zote": [
+    "door_dreamEnter"
+  ],
+  "GG_Nailmasters": [
+    "door_dreamEnter"
+  ],
+  "GG_Nosk": [
+    "door_dreamEnter"
+  ],
+  "GG_Nosk_Hornet": [
+    "door_dreamEnter"
+  ],
+  "GG_Nosk_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Oblobbles": [
+    "door_dreamEnter"
+  ],
+  "GG_Painter": [
+    "door_dreamEnter"
+  ],
+  "GG_Pipeway": [
+    "left1",
+    "right1"
+  ],
+  "GG_Radiance": [
+    "door_dreamEnter"
+  ],
+  "GG_Sly": [
+    "door_dreamEnter"
+  ],
+  "GG_Soul_Master": [
+    "door_dreamEnter"
+  ],
+  "GG_Soul_Tyrant": [
+    "door_dreamEnter"
+  ],
+  "GG_Spa": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "GG_Traitor_Lord": [
+    "door_dreamEnter"
+  ],
+  "GG_Unlock_Wastes": [
+    "door_dreamEnter"
+  ],
+  "GG_Unn": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "GG_Uumuu": [
+    "door_dreamEnter"
+  ],
+  "GG_Uumuu_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Vengefly": [
+    "door_dreamEnter"
+  ],
+  "GG_Vengefly_V": [
+    "door_dreamEnter"
+  ],
+  "GG_Watcher_Knights": [
+    "door_dreamEnter"
+  ],
+  "GG_Waterways": [
+    "door1",
+    "door_dreamReturn",
+    "right1"
+  ],
+  "GG_White_Defender": [
+    "door_dreamEnter"
+  ],
+  "GG_Workshop": [
+    "door_dreamReturnGG",
+    "left1"
+  ],
+  "GG_Wyrm": [
+    "door_dreamEnter",
+    "right1"
+  ],
+  "Grimm_Divine": [
+    "left1"
+  ],
+  "Grimm_Main_Tent": [
+    "door_dreamReturn",
+    "left1"
+  ],
+  "Grimm_Nightmare": [
+    "door1"
+  ],
+  "Hive_01": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Hive_02": [
+    "left1",
+    "left2",
+    "left3"
+  ],
+  "Hive_03": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Hive_03_c": [
+    "left1",
+    "right2",
+    "right3",
+    "top1"
+  ],
+  "Hive_04": [
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Hive_05": [
+    "left1"
+  ],
+  "Mines_01": [
+    "bot1",
+    "left1"
+  ],
+  "Mines_02": [
+    "left1",
+    "right1",
+    "top1",
+    "top2"
+  ],
+  "Mines_03": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Mines_04": [
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "top1"
+  ],
+  "Mines_05": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1",
+    "top1"
+  ],
+  "Mines_06": [
+    "left1",
+    "right1"
+  ],
+  "Mines_07": [
+    "left1",
+    "right1"
+  ],
+  "Mines_10": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Mines_11": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Mines_13": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Mines_16": [
+    "top1"
+  ],
+  "Mines_17": [
+    "left1",
+    "right1"
+  ],
+  "Mines_18": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Mines_19": [
+    "left1",
+    "right1"
+  ],
+  "Mines_20": [
+    "bot1",
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "right2"
+  ],
+  "Mines_23": [
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Mines_24": [
+    "left1"
+  ],
+  "Mines_25": [
+    "left1",
+    "top1"
+  ],
+  "Mines_28": [
+    "bot1",
+    "door1",
+    "left1"
+  ],
+  "Mines_29": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Mines_30": [
+    "left1",
+    "right1"
+  ],
+  "Mines_31": [
+    "left1"
+  ],
+  "Mines_32": [
+    "bot1"
+  ],
+  "Mines_33": [
+    "left1",
+    "right1"
+  ],
+  "Mines_34": [
+    "bot1",
+    "bot2",
+    "left1",
+    "right1"
+  ],
+  "Mines_35": [
+    "left1"
+  ],
+  "Mines_36": [
+    "right1"
+  ],
+  "Mines_37": [
+    "bot1",
+    "top1"
+  ],
+  "RestingGrounds_02": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "RestingGrounds_04": [
+    "left1",
+    "right1"
+  ],
+  "RestingGrounds_05": [
+    "bot1",
+    "left1",
+    "left2",
+    "left3",
+    "right1",
+    "right2"
+  ],
+  "RestingGrounds_06": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "RestingGrounds_07": [
+    "door_dreamReturn",
+    "right1"
+  ],
+  "RestingGrounds_08": [
+    "door_dreamReturn",
+    "left1"
+  ],
+  "RestingGrounds_09": [
+    "door_stagExit",
+    "left1"
+  ],
+  "RestingGrounds_10": [
+    "left1",
+    "top1",
+    "top2"
+  ],
+  "RestingGrounds_12": [
+    "bot1",
+    "door_Mansion"
+  ],
+  "RestingGrounds_17": [
+    "right1"
+  ],
+  "Room_Bretta": [
+    "door1",
+    "right1"
+  ],
+  "Room_Bretta_Basement": [
+    "door1",
+    "door_dreamReturn",
+    "top1"
+  ],
+  "Room_Charm_Shop": [
+    "left1"
+  ],
+  "Room_Colosseum_01": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Room_Colosseum_02": [
+    "top1",
+    "top2"
+  ],
+  "Room_Colosseum_Bronze": [
+    "left1",
+    "left1 (1)"
+  ],
+  "Room_Colosseum_Gold": [
+    "left1",
+    "left1 (1)"
+  ],
+  "Room_Colosseum_Silver": [
+    "left1",
+    "left1 (1)"
+  ],
+  "Room_Colosseum_Spectate": [
+    "bot1",
+    "right1"
+  ],
+  "Room_Final_Boss_Atrium": [
+    "left1",
+    "right1"
+  ],
+  "Room_Final_Boss_Core": [
+    "left1"
+  ],
+  "Room_Fungus_Shaman": [
+    "left1"
+  ],
+  "Room_GG_Shortcut": [
+    "left1",
+    "top1"
+  ],
+  "Room_Jinn": [
+    "left1"
+  ],
+  "Room_Mansion": [
+    "left1"
+  ],
+  "Room_Mask_Maker": [
+    "right1"
+  ],
+  "Room_Mender_House": [
+    "left1"
+  ],
+  "Room_Ouiji": [
+    "left1"
+  ],
+  "Room_Queen": [
+    "left1"
+  ],
+  "Room_Slug_Shrine": [
+    "left1"
+  ],
+  "Room_Sly_Storeroom": [
+    "door1",
+    "top1"
+  ],
+  "Room_Town_Stag_Station": [
+    "door_stagExit",
+    "left1"
+  ],
+  "Room_Tram": [
+    "door1"
+  ],
+  "Room_Tram_RG": [
+    "door1"
+  ],
+  "Room_Wyrm": [
+    "right1"
+  ],
+  "Room_mapper": [
+    "left1"
+  ],
+  "Room_nailmaster": [
+    "left1"
+  ],
+  "Room_nailmaster_02": [
+    "left1"
+  ],
+  "Room_nailmaster_03": [
+    "left1"
+  ],
+  "Room_nailsmith": [
+    "left1"
+  ],
+  "Room_ruinhouse": [
+    "left1"
+  ],
+  "Room_shop": [
+    "door1",
+    "left1"
+  ],
+  "Room_spider_small": [
+    "left1"
+  ],
+  "Room_temple": [
+    "door1",
+    "left1"
+  ],
+  "Ruins1_01": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Ruins1_02": [
+    "bot1",
+    "top1"
+  ],
+  "Ruins1_03": [
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Ruins1_04": [
+    "bot1",
+    "door1",
+    "right1"
+  ],
+  "Ruins1_05": [
+    "bot1",
+    "bot2",
+    "bot3",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Ruins1_05b": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Ruins1_05c": [
+    "bot1",
+    "left2",
+    "top1",
+    "top2",
+    "top3"
+  ],
+  "Ruins1_06": [
+    "left1",
+    "right1"
+  ],
+  "Ruins1_09": [
+    "left1",
+    "top1"
+  ],
+  "Ruins1_17": [
+    "bot1",
+    "right1",
+    "top1"
+  ],
+  "Ruins1_18": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Ruins1_23": [
+    "bot1",
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Ruins1_24": [
+    "door_dreamReturn",
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Ruins1_25": [
+    "left1",
+    "left2",
+    "left3"
+  ],
+  "Ruins1_27": [
+    "left1",
+    "right1"
+  ],
+  "Ruins1_28": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Ruins1_29": [
+    "door_stagExit",
+    "left1"
+  ],
+  "Ruins1_30": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Ruins1_31": [
+    "bot1",
+    "left1",
+    "left2",
+    "left3",
+    "right1"
+  ],
+  "Ruins1_31b": [
+    "right1",
+    "right2"
+  ],
+  "Ruins1_32": [
+    "right1",
+    "right2"
+  ],
+  "Ruins2_01": [
+    "bot1",
+    "left2",
+    "top1"
+  ],
+  "Ruins2_01_b": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Ruins2_03": [
+    "bot1",
+    "bot2",
+    "top1"
+  ],
+  "Ruins2_03b": [
+    "bot1",
+    "left1",
+    "top1",
+    "top2"
+  ],
+  "Ruins2_04": [
+    "door_Ruin_Elevator",
+    "door_Ruin_House_01",
+    "door_Ruin_House_02",
+    "door_Ruin_House_03",
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "Ruins2_05": [
+    "bot1",
+    "left1",
+    "top1"
+  ],
+  "Ruins2_06": [
+    "left1",
+    "left2",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Ruins2_07": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Ruins2_08": [
+    "door_stagExit",
+    "left1"
+  ],
+  "Ruins2_09": [
+    "bot1"
+  ],
+  "Ruins2_10": [
+    "elev_entrance",
+    "left1",
+    "right1"
+  ],
+  "Ruins2_10b": [
+    "elev_entrance",
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Ruins2_11": [
+    "right1"
+  ],
+  "Ruins2_11_b": [
+    "bot1",
+    "left1",
+    "right1"
+  ],
+  "Ruins2_Watcher_Room": [
+    "bot1",
+    "door_dreamReturn"
+  ],
+  "Ruins_Bathhouse": [
+    "door1",
+    "right1"
+  ],
+  "Ruins_Elevator": [
+    "left1",
+    "left2"
+  ],
+  "Ruins_House_01": [
+    "left1"
+  ],
+  "Ruins_House_02": [
+    "left1"
+  ],
+  "Ruins_House_03": [
+    "left1",
+    "left2"
+  ],
+  "Town": [
+    "bot1",
+    "door_bretta",
+    "door_dreamReturn",
+    "door_jiji",
+    "door_mapper",
+    "door_sly",
+    "door_station",
+    "left1",
+    "right1",
+    "room_divine",
+    "room_grimm",
+    "top1"
+  ],
+  "Tutorial_01": [
+    "right1",
+    "top1",
+    "top2"
+  ],
+  "Waterways_01": [
+    "bot1",
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "Waterways_02": [
+    "bot1",
+    "bot2",
+    "top1",
+    "top2",
+    "top3"
+  ],
+  "Waterways_03": [
+    "left1"
+  ],
+  "Waterways_04": [
+    "bot1",
+    "left1",
+    "left2",
+    "right1"
+  ],
+  "Waterways_04b": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "Waterways_05": [
+    "bot1",
+    "bot2",
+    "right1"
+  ],
+  "Waterways_06": [
+    "right1",
+    "top1"
+  ],
+  "Waterways_07": [
+    "door1",
+    "left1",
+    "right1",
+    "right2",
+    "top1"
+  ],
+  "Waterways_08": [
+    "left1",
+    "left2",
+    "top1"
+  ],
+  "Waterways_09": [
+    "left1",
+    "right1"
+  ],
+  "Waterways_12": [
+    "right1"
+  ],
+  "Waterways_13": [
+    "left1",
+    "left2"
+  ],
+  "Waterways_14": [
+    "bot1",
+    "bot2"
+  ],
+  "Waterways_15": [
+    "door_dreamReturn",
+    "top1"
+  ],
+  "White_Palace_01": [
+    "left1",
+    "right1",
+    "top1"
+  ],
+  "White_Palace_02": [
+    "left1"
+  ],
+  "White_Palace_03_hub": [
+    "bot1",
+    "door1",
+    "doorWarp",
+    "left1",
+    "left2",
+    "right1",
+    "top1"
+  ],
+  "White_Palace_04": [
+    "right2",
+    "top1"
+  ],
+  "White_Palace_05": [
+    "left1",
+    "left2",
+    "right1",
+    "right2"
+  ],
+  "White_Palace_06": [
+    "bot1",
+    "door_dreamReturn",
+    "left1",
+    "top1"
+  ],
+  "White_Palace_07": [
+    "bot1",
+    "top1"
+  ],
+  "White_Palace_08": [
+    "left1",
+    "right1"
+  ],
+  "White_Palace_09": [
+    "right1"
+  ],
+  "White_Palace_11": [
+    "door1",
+    "door2",
+    "doorWarp"
+  ],
+  "White_Palace_12": [
+    "bot1",
+    "right1"
+  ],
+  "White_Palace_13": [
+    "left1",
+    "left2",
+    "left3",
+    "right1"
+  ],
+  "White_Palace_14": [
+    "bot1",
+    "right1"
+  ],
+  "White_Palace_15": [
+    "left1",
+    "right1",
+    "right2"
+  ],
+  "White_Palace_16": [
+    "left1",
+    "left2"
+  ],
+  "White_Palace_17": [
+    "bot1",
+    "right1"
+  ],
+  "White_Palace_18": [
+    "right1",
+    "top1"
+  ],
+  "White_Palace_19": [
+    "left1",
+    "top1"
+  ],
+  "White_Palace_20": [
+    "bot1"
+  ],
+  "_test_cocoon_1": [
+    "right1"
+  ],
+  "_test_cocoon_2": [
+    "left1"
+  ]
+}
