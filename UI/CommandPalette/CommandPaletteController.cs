@@ -48,6 +48,7 @@ public sealed class CommandPaletteController : MonoBehaviour
 
     public static bool IsOpen => _instance != null && _instance.panel != null && _instance.panel.ActiveSelf;
 
+    private int MaxFirstVisibleIndex => Mathf.Max(0, filteredItems.Count - MaxVisibleItems);
     private Binding removeWordBinding = new Binding(Application.platform == RuntimePlatform.OSXPlayer ? Modifier.Alt : Modifier.Ctrl, KeyCode.Backspace);
 
     #region Lifecycle Methods
@@ -178,6 +179,12 @@ public sealed class CommandPaletteController : MonoBehaviour
             case KeyCode.DownArrow:
                 MoveSelection(1);
                 break;
+            case KeyCode.PageUp:
+                MovePage(-1);
+                break;
+            case KeyCode.PageDown:
+                MovePage(1);
+                break;
         }
     }
 
@@ -186,6 +193,21 @@ public sealed class CommandPaletteController : MonoBehaviour
         if (filteredItems.Count == 0) return;
         if (wrapAround) selectedIndex = (selectedIndex + offset + filteredItems.Count) % filteredItems.Count;
         else selectedIndex = Mathf.Clamp(selectedIndex + offset, 0, filteredItems.Count - 1);
+        Render();
+    }
+
+    private void MovePage(int direction)
+    {
+        if (filteredItems.Count == 0) return;
+
+        firstVisibleIndex = Mathf.Clamp(firstVisibleIndex + direction * (MaxVisibleItems - 1), 0, MaxFirstVisibleIndex);
+        int lastVisibleIndex = firstVisibleIndex + MaxVisibleItems - 1;
+
+        // when the first or last item is in view, don't apply context row
+        if (direction > 0)
+            selectedIndex = firstVisibleIndex == MaxFirstVisibleIndex ? filteredItems.Count - 1 : lastVisibleIndex - ContextRowCount;
+        else
+            selectedIndex = firstVisibleIndex == 0 ? 0 : firstVisibleIndex + ContextRowCount;
         Render();
     }
 
@@ -450,7 +472,7 @@ public sealed class CommandPaletteController : MonoBehaviour
             firstVisibleIndex = selectedIndex - ContextRowCount;
         if (selectedIndex > firstVisibleIndex + MaxVisibleItems - 1 - ContextRowCount)
             firstVisibleIndex = selectedIndex - MaxVisibleItems + 1 + ContextRowCount;
-        firstVisibleIndex = Mathf.Clamp(firstVisibleIndex, 0, Mathf.Max(0, filteredItems.Count - MaxVisibleItems));
+        firstVisibleIndex = Mathf.Clamp(firstVisibleIndex, 0, MaxFirstVisibleIndex);
 
         for (int i = 0; i < rows.Count; i++)
         {
